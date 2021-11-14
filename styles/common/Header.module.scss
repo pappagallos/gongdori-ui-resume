@@ -3,3 +3,12 @@
  * @author 이우진(pappagallos@kakao.com)
  */
 
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    padding: 20px 0;
+}
