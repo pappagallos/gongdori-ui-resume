@@ -9,6 +9,60 @@
     justify-content: center;
 
     width: 100%;
-    border-bottom: 1px solid #ccc;
-    padding: 20px 0;
+    height: 60px;
+    border-bottom: 1px solid #ebebeb;
+
+    .header_area {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        width: 100%;
+        max-width: 1155px;
+
+        .menu_area {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            font-weight: 500;
+
+            img {
+                width: auto;
+                height: 30px;
+                margin-top: 4px;
+                margin-right: 40px;
+            }
+
+            ul {
+                display: flex;
+                margin: 0;
+                padding: 0;
+                list-style: none;
+            }
+              
+            li {
+                margin-right: 40px;
+            }
+        }
+
+        .sign_area {
+            .button_sign {
+                margin-right: 25px;
+                font-weight: 500;
+            }
+
+            .button_business_service {
+                padding: 8px 18px;
+                border: 1px solid #d6d6d6;
+                border-radius: 50px;
+                transition: .25s;
+                font-weight: 500;
+
+                &:hover {
+                    transition: .25s;
+                }
+            }
+        }
+    }
+    
 }

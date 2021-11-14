@@ -1,5 +1,5 @@
 /*
- * 공통 푸터 컴포넌트 스타일
+ * 메인 화면 스타일
  * @author 이우진(pappagallos@kakao.com)
  */
 
@@ -8,6 +8,8 @@
     align-items: center;
     justify-content: center;
 
+    width: 100%;
+    max-width: 1150px;
     padding: 20px 0;
-    border-top: 1px solid #ebebeb;
+    margin: 0 auto;
 }
