@@ -1,0 +1,8 @@
+.container { 
+  width: 100px;
+  height: 200px;
+}
+
+.container input::placeholder {
+  font-size: 12px;
+}
