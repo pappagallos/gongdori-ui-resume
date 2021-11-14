@@ -1,12 +1,6 @@
 import React from 'react';
-
-/* styles */
-import styles from '../styles/Home.module.scss';
+import Main from './main/Main';
 
 export default function Home() {
-  return (
-    <div className={styles.container}>
-      123
-    </div>
-  )
+  return <Main />
 }
