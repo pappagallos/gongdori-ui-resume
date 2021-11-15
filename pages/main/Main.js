@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation, Autoplay } from 'swiper/core';
 
@@ -16,7 +16,45 @@ export default function Main() {
   }
 
   const [swiper, setSwiper] = useState();
-  const [slide, setSlide] = useState(1);
+  const [slideIndex, setSlideIndex] = useState(1);
+  const [slideList, setSlideList] = useState([]);
+
+  function fetchBannerList() {
+    setSlideList([
+      {
+        design: {
+          slideBackgroundColor: '#f3f3f3',
+          slideFontColor: '#000',
+          tagBackgroundColor: '#000',
+          tagFontColor: '#f3f3f3'
+        },
+        contents: {
+          tag: '이공계사람들 소개',
+          title: '<p>이공계 분야에 더욱 특화된</p><p>구인구직 플랫폼 입니다.</p>',
+          description: '<p>상표등록부터 점진적으로 사업화를 추진중입니다.</p><p>이공계사람들에서 구인중인 회사와 대학원 연구실들을 무료로 만나보세요!</p>',
+          imageUrl: '/assets/images/common/logo.png'
+        }
+      }, 
+      {
+        design: {
+          slideBackgroundColor: '#33cdac',
+          slideFontColor: '#000',
+          tagBackgroundColor: '#fff',
+          tagFontColor: '#2e86b3'
+        },
+        contents: {
+          tag: '제뉴원사이언스 채용',
+          title: '<p>제뉴원사이언스에서</p><p>신입/경력사원을 적극 모집합니다.</p>',
+          description: '<p>의약품 CMO 마케팅, 의약품영업, 의약품개발기획, 품질관리, 품질경영,</p><p>재무회계, 임상, 제제연구, 분석연구, R&D전략, 신약연구, 제제기술</p>',
+          imageUrl: '/assets/images/main/banner/banner_genuone.png'
+        }
+      }
+    ]);
+  }
+
+  useEffect(() => {
+    fetchBannerList();
+  }, []);
 
   return (
       <>
@@ -35,85 +73,80 @@ export default function Main() {
             swiper.navigation.update();
           }}
           onSlideChange={(e) => {
-            setSlide(e.realIndex);
+            setSlideIndex(e.realIndex);
           }}
           onSwiper={(swiper) => {
             setSwiper(swiper);
           }}
         >
-          <SwiperSlide className={styles.swiper_slide} style={{ background: '#f3f3f3', color: '#000' }}>
-            <div className={styles.slide_container}>
-              <div className={styles.slide_content_area}>
-                <div className={styles.slide_title}>
-                  {/* 태그 */}
-                  <span className={styles.slide_tag} style={{ background: '#000', color: '#f3f3f3' }}>이공계사람들 소개</span>
+          { slideList.map((slide, index) => {
+              return (
+                <SwiperSlide className={styles.swiper_slide} 
+                  style={{ background: slide.design.slideBackgroundColor, color: slide.design.slideFontColor }} 
+                  key={index}>
+                  <div className={styles.slide_container}>
+                    <div className={styles.slide_content_area}>
+                      <div className={styles.slide_left_content}>
+                        {/* 태그 */}
+                        <span 
+                          className={styles.slide_tag} 
+                          style={{ background: slide.design.tagBackgroundColor, color: slide.design.tagFontColor }}>
+                            {slide.contents.tag}
+                        </span>
 
-                  {/* 제목 */}
-                  <p>이공계 분야에 더욱 특화된</p>
-                  <p>구인구직 플랫폼 입니다.</p>
+                        {/* 제목 */}
+                        <div className={styles.slide_title} 
+                          dangerouslySetInnerHTML={{ __html: slide.contents.title }}>
+                        </div>
 
-                  {/* 내용 */}
-                  <div className={styles.slide_title_description}>
-                    <p>상표등록부터 점진적으로 사업화를 추진중입니다.</p>
-                    <p>이공계사람들에서 구인중인 회사와 대학원 연구실들을 무료로 만나보세요!</p>
+                        {/* 내용 */}
+                        <div className={styles.slide_title_description} 
+                          dangerouslySetInnerHTML={{ __html: slide.contents.description }}>
+                        </div>
+                      </div>
+
+                      {/* 이미지 */}
+                      <div className={styles.slide_image}>
+                        <Webp src={slide.contents.imageUrl} width={400} />
+                      </div>
+                    </div>
                   </div>
-                </div>
-
-                {/* 이미지 */}
-                <div className={styles.slide_image}>
-                  <Webp src='/assets/images/common/logo.png' width={400} />
-                </div>
-              </div>
-            </div>
-          </SwiperSlide>
-
-          <SwiperSlide className={styles.swiper_slide} style={{ background: '#33cdac', color: '#000' }}>
-            <div className={styles.slide_container}>
-              <div className={styles.slide_content_area}>
-                <div className={styles.slide_title}>
-                  {/* 태그 */}
-                  <span className={styles.slide_tag} style={{ background: '#2e86b3', color: '#fff' }}>제뉴원사이언스 채용</span>
-
-                  {/* 제목 */}
-                  <p>제뉴원사이언스에서</p>
-                  <p>신입/경력사원을 적극 모집합니다.</p>
-
-                  {/* 내용 */}
-                  <div className={styles.slide_title_description}>
-                    <p>의약품 CMO 마케팅, 의약품영업, 의약품개발기획, 품질관리, 품질경영,</p>
-                    <p>재무회계, 임상, 제제연구, 분석연구, R&D전략, 신약연구, 제제기술</p>
-                  </div>
-                </div>
-
-                {/* 이미지 */}
-                <div className={styles.slide_image}>
-                  <Webp src='/assets/images/main/banner/banner_genuone.png' width={400} />
-                </div>
-              </div>
-            </div>
-          </SwiperSlide>
+                </SwiperSlide>
+              )
+            })
+          }
         </Swiper>
         
         {/* 대배너 컨트롤러 */}
         <div className={styles.slide_controller_area}>
           <div className={styles.slide_controller}>
+            {/* 현재 슬라이드/전체 슬라이드 표시 패널 */}
             <div className={styles.slide_controller_panel}>
               <Webp src='/assets/images/main/prev.png' onClick={() => swiper.slidePrev()} />
-                <span>{slide + 1}</span>/2
+                <span>{slideIndex + 1}</span>/{slideList.length}
               <Webp src='/assets/images/main/next.png' onClick={() => swiper.slideNext()} />
             </div>
 
+            {/* 슬라이드 태그 */}
             <div className={styles.slide_list_panel}>
               <ul>
-                <li className={`${slide === 0 ? styles.current : ''} ${styles.cursor}`} onClick={() => swiper.slideTo(1)}>이공계사람들 소개</li>
-                <li className={`${slide === 1 ? styles.current : ''} ${styles.cursor}`} onClick={() => swiper.slideTo(2)}>제뉴원사이언스 채용</li>
+                {slideList.map((slide, index) => 
+                  <li className={`${slideIndex === index ? styles.current : ''} ${styles.cursor}`} 
+                    onClick={() => swiper.slideTo(index + 1)} key={index}>
+                      {slide.contents.tag}
+                  </li>
+                )}
               </ul>
             </div>
           </div>
         </div>
-
+        
+        {/* 메인 화면 */}
         <div className={styles.container}>
-          123
+          {/* 이공계 계열 종류 */}
+          <div className={styles.category_list}>
+
+          </div>
         </div>
       </>
   )

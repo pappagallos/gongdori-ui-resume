@@ -19,17 +19,23 @@
             align-items: center;
             justify-content: space-between;
 
-            .slide_title {
-                font-size: 2.2rem;
-                font-weight: 700;
-                line-height: 20px;
+            .slide_left_content {
+                display: flex;
+                flex-direction: column;
 
                 .slide_tag {
+                    width: fit-content;
                     text-align: center;
                     font-size: 1rem;
                     font-weight: 500;
                     padding: 5px 14px;
                     border-radius: 20px;
+                }
+
+                .slide_title {
+                    font-size: 2.2rem;
+                    font-weight: 700;
+                    line-height: 20px;
                 }
 
                 .slide_title_description {
@@ -44,10 +50,12 @@
 
 .slide_controller_area {
     display: flex;
-    width: 100%;
-    margin-top: 15px;
     align-items: center;
     justify-content: center;
+
+    width: 100%;
+    padding: 15px 0;
+    border-bottom: 1px solid #ebebeb;
 
     .slide_controller {
         display: flex;
@@ -118,4 +126,8 @@
     max-width: 1150px;
     padding: 40px 0;
     margin: 0 auto;
+
+    .category_list {
+
+    }
 }
