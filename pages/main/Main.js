@@ -63,7 +63,7 @@ export default function Main() {
 
                 {/* 이미지 */}
                 <div className={styles.slide_image}>
-                  <Webp src='/assets/images/common/logo.png' />
+                  <Webp src='/assets/images/common/logo.png' width={400} />
                 </div>
               </div>
             </div>
@@ -71,7 +71,7 @@ export default function Main() {
         </Swiper>
 
         <div className={styles.container}>
-
+          123
         </div>
       </>
   )

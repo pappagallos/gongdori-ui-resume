@@ -33,10 +33,10 @@ function Webp(props, ref) {
     if (ref) {
         return (
             (!isError ?
-                    <picture onError={handleOnError} {...propsList} ref={ref}>
+                    <picture onError={handleOnError} ref={ref}>
                         <source srcSet={imageWebpSrc} type="image/webp" />
                         <source srcSet={imageOriginSrc} type={`image/${imageFormat}`} />
-                        <img src={imageOriginSrc} alt={alt} style={styleList} />
+                        <img {...propsList} src={imageOriginSrc} alt={alt} style={styleList} />
                     </picture>
                 :
                     <img {...propsList} src={imageOriginSrc} alt={alt} style={styleList} ref={ref} />
@@ -45,10 +45,10 @@ function Webp(props, ref) {
     } else {
         return (
             (!isError ?
-                    <picture onError={handleOnError} {...propsList}>
+                    <picture onError={handleOnError}>
                         <source srcSet={imageWebpSrc} type="image/webp" />
                         <source srcSet={imageOriginSrc} type={`image/${imageFormat}`} />
-                        <img src={imageOriginSrc} alt={alt} style={styleList} />
+                        <img {...propsList} src={imageOriginSrc} alt={alt} style={styleList} />
                     </picture>
                 :
                     <img {...propsList} src={imageOriginSrc} alt={alt} style={styleList} />
