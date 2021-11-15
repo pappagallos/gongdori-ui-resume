@@ -1,0 +1,121 @@
+/*
+ * 메인 화면 스타일
+ * @author 이우진(pappagallos@kakao.com)
+ */
+
+.swiper_slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-height: 320px;
+
+    .slide_container {
+        width: 1150px;
+
+        .slide_content_area {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .slide_title {
+                font-size: 2.2rem;
+                font-weight: 700;
+                line-height: 20px;
+
+                .slide_tag {
+                    text-align: center;
+                    font-size: 1rem;
+                    font-weight: 500;
+                    padding: 5px 14px;
+                    border-radius: 20px;
+                }
+
+                .slide_title_description {
+                    font-size: 1.1rem;
+                    font-weight: 300;
+                    line-height: 15px;
+                }
+            }
+        }
+    }
+}
+
+.slide_controller_area {
+    display: flex;
+    width: 100%;
+    margin-top: 15px;
+    align-items: center;
+    justify-content: center;
+
+    .slide_controller {
+        display: flex;
+        align-items: center;
+        
+        width: 100%;
+        max-width: 1150px;
+        border: none;
+        white-space: nowrap;
+        overflow: hidden;
+
+        .slide_controller_panel {
+            margin-right: 15px;
+
+            img {
+                width: 16px;
+                height: auto;
+                margin: 0 10px;
+                cursor: pointer;
+            }
+
+            span {
+                color: #000;
+                font-size: 1.4rem;
+            }
+        }
+
+        .slide_list_panel {
+            display: flex;
+            align-items: center;
+            max-width: 100%;
+            overflow-x: scroll;
+            border: none;
+
+            ul {
+                display: flex;
+                align-items: center;
+            }
+
+            li {
+                font-size: 1.1rem;
+                font-weight: 500;
+                padding: 10px;
+                border: 1px solid #e4e4e4;
+                margin-right: 7px;
+                border-radius: 5px;
+                color: #7e7e7e;
+
+                &.cursor {
+                    cursor: pointer;
+                }
+
+                &.current {
+                    border: 3px solid #000000;
+                    color: #000;
+                }
+            }
+        }
+    }
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    max-width: 1150px;
+    padding: 40px 0;
+    margin: 0 auto;
+}
