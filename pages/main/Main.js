@@ -6,6 +6,7 @@ import SwiperCore, { Navigation, Autoplay } from 'swiper/core';
 import styles from '../../styles/Main.module.scss';
 import 'swiper/swiper.min.css';
 import 'swiper/components/navigation/navigation.min.css';
+import Webp from '../../components/common/Webp';
 
 SwiperCore.use([Navigation, Autoplay]);
 
@@ -42,9 +43,29 @@ export default function Main() {
 
           }}
         >
-          <SwiperSlide className={styles.swiper_slide} style={{ background: '#af28ff', color: '#fff' }}>
+          <SwiperSlide className={styles.swiper_slide} style={{ background: '#f3f3f3', color: '#000' }}>
             <div className={styles.slide_container}>
-              테스트1
+              <div className={styles.slide_content_area}>
+                <div className={styles.slide_title}>
+                  {/* 태그 */}
+                  <div className={styles.slide_tag}>이공계사람들 소개</div>
+
+                  {/* 제목 */}
+                  <p>의료/제약/바이오, 엔지니어링/설계, 프로그래밍/개발 등</p>
+                  <p>이공계 분야에 더욱 특화된 구인구직 플랫폼 입니다.</p>
+
+                  {/* 내용 */}
+                  <div className={styles.slide_title_description}>
+                    <p>개인이 운영하고 있으면서 상표등록부터 점진적으로 사업화를 추진중입니다.</p>
+                    <p>무료로 이공계사람들에서 구인중인 회사들, 대학원 연구실 교수님들을 만나보세요!</p>
+                  </div>
+                </div>
+
+                {/* 이미지 */}
+                <div className={styles.slide_image}>
+                  <Webp src='/assets/images/common/logo.png' />
+                </div>
+              </div>
             </div>
           </SwiperSlide>
         </Swiper>

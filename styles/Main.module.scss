@@ -13,6 +13,41 @@
 
     .slide_container {
         width: 1150px;
+
+        .slide_content_area {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .slide_title {
+                font-size: 2.2rem;
+                font-weight: 500;
+                line-height: 20px;
+
+                .slide_tag {
+                    width: 140px;
+                    text-align: center;
+                    font-size: 1rem;
+                    padding: 3px 1px;
+                    background: #000;
+                    border-radius: 20px;
+                    color: #fff;
+                }
+
+                .slide_title_description {
+                    font-size: 1.1rem;
+                    font-weight: 300;
+                    line-height: 15px;
+                }
+            }
+
+            .slide_image {
+                img {
+                    width: 300px;
+                    height: auto;
+                }
+            }
+        }
     }
 }
 
