@@ -7,6 +7,7 @@ import styles from '../../styles/main/Main.module.scss';
 import 'swiper/swiper.min.css';
 import 'swiper/components/navigation/navigation.min.css';
 import Webp from '../../components/common/Webp';
+import utilCommon from '../../utils/common';
 
 SwiperCore.use([Navigation, Autoplay]);
 
@@ -16,7 +17,7 @@ export default function Main() {
   }
 
   const [swiper, setSwiper] = useState();
-  const [slideIndex, setSlideIndex] = useState(1);
+  const [slideIndex, setSlideIndex] = useState(0);
   const [slideList, setSlideList] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
   const [hiringList, setHiringList] = useState([]);
@@ -181,48 +182,46 @@ export default function Main() {
             swiper.navigation.init();
             swiper.navigation.update();
           }}
-          onSlideChange={(e) => {
-            setSlideIndex(e.realIndex);
+          onSlideChange={(swiper) => {
+            setSlideIndex(swiper.realIndex);
           }}
           onSwiper={(swiper) => {
             setSwiper(swiper);
           }}
         >
-          { slideList.map((slide, index) => {
-              return (
-                <SwiperSlide className={styles.swiper_slide} 
-                  style={{ background: slide.design.slideBackgroundColor, color: slide.design.slideFontColor }} 
-                  key={index}>
-                  <div className={styles.slide_container}>
-                    <div className={styles.slide_content_area}>
-                      <div className={styles.slide_left_content}>
-                        {/* 태그 */}
-                        <span 
-                          className={styles.slide_tag} 
-                          style={{ background: slide.design.tagBackgroundColor, color: slide.design.tagFontColor }}>
-                            {slide.contents.tag}
-                        </span>
+          { slideList.map((slide) => 
+              <SwiperSlide className={styles.swiper_slide} 
+                style={{ background: slide.design.slideBackgroundColor, color: slide.design.slideFontColor }} 
+                key={utilCommon.getRandomKey()}>
+                <div className={styles.slide_container}>
+                  <div className={styles.slide_content_area}>
+                    <div className={styles.slide_left_content}>
+                      {/* 태그 */}
+                      <span 
+                        className={styles.slide_tag} 
+                        style={{ background: slide.design.tagBackgroundColor, color: slide.design.tagFontColor }}>
+                          {slide.contents.tag}
+                      </span>
 
-                        {/* 제목 */}
-                        <div className={styles.slide_title} 
-                          dangerouslySetInnerHTML={{ __html: slide.contents.title }}>
-                        </div>
-
-                        {/* 내용 */}
-                        <div className={styles.slide_title_description} 
-                          dangerouslySetInnerHTML={{ __html: slide.contents.description }}>
-                        </div>
+                      {/* 제목 */}
+                      <div className={styles.slide_title} 
+                        dangerouslySetInnerHTML={{ __html: slide.contents.title }}>
                       </div>
 
-                      {/* 이미지 */}
-                      <div className={styles.slide_image}>
-                        <Webp src={slide.contents.imageUrl} width={400} />
+                      {/* 내용 */}
+                      <div className={styles.slide_title_description} 
+                        dangerouslySetInnerHTML={{ __html: slide.contents.description }}>
                       </div>
                     </div>
+
+                    {/* 이미지 */}
+                    <div className={styles.slide_image}>
+                      <Webp src={slide.contents.imageUrl} width={400} />
+                    </div>
                   </div>
-                </SwiperSlide>
-              )
-            })
+                </div>
+              </SwiperSlide>
+            )
           }
         </Swiper>
         
@@ -241,7 +240,7 @@ export default function Main() {
               <ul>
                 {slideList.map((slide, index) => 
                   <li className={`${slideIndex === index ? styles.current : ''} ${styles.cursor}`} 
-                    onClick={() => swiper.slideTo(index + 1)} key={index}>
+                    onClick={() => swiper.slideTo(index + 1)} key={utilCommon.getRandomKey()}>
                       {slide.contents.tag}
                   </li>
                 )}
@@ -258,8 +257,8 @@ export default function Main() {
 
             <div className={styles.hiring_list}>
               <ul>
-                { hiringList.map((hiring, index) => 
-                  <li key={index}>
+                { hiringList.map((hiring) => 
+                  <li key={utilCommon.getRandomKey()}>
                     <div className={styles.hiring_image}>
                       <Webp src={hiring.imageUrl} />
                     </div>
@@ -280,8 +279,8 @@ export default function Main() {
 
             <div className={styles.category_list}>
               <ul>
-                { categoryList.map((category, index) => 
-                  <li key={index}>
+                { categoryList.map((category) => 
+                  <li key={utilCommon.getRandomKey()}>
                     <Webp src={category.imageUrl} />
                     <p className={styles.category_name}>{category.categoryName}</p>
                   </li>
