@@ -12,7 +12,7 @@
     min-height: 320px;
 
     .slide_container {
-        width: 1150px;
+        width: 1155px;
 
         .slide_content_area {
             display: flex;
@@ -62,7 +62,7 @@
         align-items: center;
         
         width: 100%;
-        max-width: 1150px;
+        max-width: 1155px;
         border: none;
         white-space: nowrap;
         overflow: hidden;
@@ -119,15 +119,127 @@
 
 .container {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
 
     width: 100%;
-    max-width: 1150px;
-    padding: 40px 0;
+    max-width: 1155px;
+    padding: 20px 0;
     margin: 0 auto;
 
-    .category_list {
+    .category_list_section {
+        width: 100%;
+        margin-bottom: 50px;
 
+        .category_list {
+            ul {
+                display: grid;
+                grid-template-columns: 25% 25% 25% 25%;
+                grid-gap: 10px;
+
+                width: 100%;
+
+                li {
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    height: 100px;
+                    border-radius: 7px;
+                    cursor: pointer;
+                    overflow: hidden;
+
+                    &:last-child {
+                        border: 1px dotted #ebebeb;
+                    }
+
+                    img {
+                        width: 100%;
+                        height: auto;
+                    }
+
+                    .category_name {
+                        position: absolute;
+                        color: #fff;
+                        font-weight: 700;
+                        font-size: 1.2rem;
+                    }
+                }
+            }
+        }
     }
+
+    .hiring_list_section {
+        width: 100%;
+        margin-bottom: 50px;
+
+        .hiring_list {
+            ul {
+                display: grid;
+                grid-template-columns: 20% 20% 20% 20% 20%;
+                grid-gap: 10px;
+
+                width: 100%;
+
+                li {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    width: 100%;
+                    height: max-content;
+                    cursor: pointer;
+                    overflow: hidden;
+                    margin-bottom: 35px;
+
+                    img {
+                        width: 100%;
+                        height: auto;
+                        border-radius: 7px;
+                    }
+
+                    p {
+                        margin: 0;
+                        padding: 0;
+                    }
+
+                    .hiring_image {
+                        width: 100%;
+                        height: auto;
+                    }
+
+                    .hiring_description {
+                        width: 100%;
+                        height: fit-content;
+
+                        .hiring_title {
+                            font-size: 1.2rem;
+                            font-weight: 700;
+                            margin: 5px 0;
+                        }
+
+                        .company_name {
+                            margin: 5px 0;
+                        }
+
+                        .company_location {
+                            color: #7e7e7e;
+                        }
+
+                        .hiring_name {
+                            color: #fff;
+                            font-weight: 700;
+                            font-size: 1.2rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.section_title {
+    font-size: 1.6rem;
+    font-weight: 700;
 }

@@ -18,6 +18,8 @@ export default function Main() {
   const [swiper, setSwiper] = useState();
   const [slideIndex, setSlideIndex] = useState(1);
   const [slideList, setSlideList] = useState([]);
+  const [categoryList, setCategoryList] = useState([]);
+  const [hiringList, setHiringList] = useState([]);
 
   function fetchBannerList() {
     setSlideList([
@@ -39,8 +41,8 @@ export default function Main() {
         design: {
           slideBackgroundColor: '#33cdac',
           slideFontColor: '#000',
-          tagBackgroundColor: '#fff',
-          tagFontColor: '#2e86b3'
+          tagBackgroundColor: '#2e86b3',
+          tagFontColor: '#fff'
         },
         contents: {
           tag: '제뉴원사이언스 채용',
@@ -52,8 +54,115 @@ export default function Main() {
     ]);
   }
 
+  function fetchCategoryList() {
+    setCategoryList([
+      {
+        categoryName: '건축/설계',
+        imageUrl: '/assets/images/main/category/building.jpg',
+        link: ''
+      },
+      {
+        categoryName: '의료/제약/바이오',
+        imageUrl: '/assets/images/main/category/bio.jpg',
+        link: ''
+      },
+      {
+        categoryName: '인공지능/소프트웨어/개발',
+        imageUrl: '/assets/images/main/category/develop.jpg',
+        link: ''
+      },
+      {
+        categoryName: '로봇/메카트로닉스/기계',
+        imageUrl: '/assets/images/main/category/robot.jpg',
+        link: ''
+      },
+      {
+        categoryName: '항공/우주/철도/선박/자동차',
+        imageUrl: '/assets/images/main/category/rocket.jpg',
+        link: ''
+      },
+      {
+        categoryName: '식/음료/영양',
+        imageUrl: '/assets/images/main/category/food.jpg',
+        link: ''
+      },
+      {
+        categoryName: '교육/대학원/실험실',
+        imageUrl: '/assets/images/main/category/college.jpg',
+        link: ''
+      }
+    ]);
+  }
+
+  function fetchHiringList() {
+    setHiringList([
+      {
+        hiringTitle: 'React.js Front-End 개발자',
+        hiringCompanyName: '카카오엔터테인먼트',
+        hiringCompanyLocation: '한국/서울',
+        imageUrl: '/assets/images/main/category/building.jpg'
+      },
+      {
+        hiringTitle: '메타버스 AR/VR 개발자',
+        hiringCompanyName: '카카오엔터테인먼트',
+        hiringCompanyLocation: '한국/서울',
+        imageUrl: '/assets/images/main/category/building.jpg'
+      },
+      {
+        hiringTitle: '메타버스 AR/VR 개발자',
+        hiringCompanyName: '카카오엔터테인먼트',
+        hiringCompanyLocation: '한국/서울',
+        imageUrl: '/assets/images/main/category/building.jpg'
+      },
+      {
+        hiringTitle: '메타버스 AR/VR 개발자',
+        hiringCompanyName: '카카오엔터테인먼트',
+        hiringCompanyLocation: '한국/서울',
+        imageUrl: '/assets/images/main/category/building.jpg'
+      },
+      {
+        hiringTitle: '메타버스 AR/VR 개발자',
+        hiringCompanyName: '카카오엔터테인먼트',
+        hiringCompanyLocation: '한국/서울',
+        imageUrl: '/assets/images/main/category/building.jpg'
+      },
+      {
+        hiringTitle: '메타버스 AR/VR 개발자',
+        hiringCompanyName: '카카오엔터테인먼트',
+        hiringCompanyLocation: '한국/서울',
+        imageUrl: '/assets/images/main/category/building.jpg'
+      },
+      {
+        hiringTitle: '메타버스 AR/VR 개발자',
+        hiringCompanyName: '카카오엔터테인먼트',
+        hiringCompanyLocation: '한국/서울',
+        imageUrl: '/assets/images/main/category/building.jpg'
+      },
+      {
+        hiringTitle: '메타버스 AR/VR 개발자',
+        hiringCompanyName: '카카오엔터테인먼트',
+        hiringCompanyLocation: '한국/서울',
+        imageUrl: '/assets/images/main/category/building.jpg'
+      },
+      {
+        hiringTitle: '메타버스 AR/VR 개발자',
+        hiringCompanyName: '카카오엔터테인먼트',
+        hiringCompanyLocation: '한국/서울',
+        imageUrl: '/assets/images/main/category/building.jpg'
+      },
+      {
+        hiringTitle: '메타버스 AR/VR 개발자',
+        hiringCompanyName: '카카오엔터테인먼트',
+        hiringCompanyLocation: '한국/서울',
+        imageUrl: '/assets/images/main/category/building.jpg'
+      }
+    ]);
+  }
+
   useEffect(() => {
     fetchBannerList();
+    fetchCategoryList();
+    fetchHiringList();
   }, []);
 
   return (
@@ -143,9 +252,42 @@ export default function Main() {
         
         {/* 메인 화면 */}
         <div className={styles.container}>
-          {/* 이공계 계열 종류 */}
-          <div className={styles.category_list}>
+          {/* 지금 채용중인 공고 */}
+          <div className={styles.hiring_list_section}>
+            <p className={styles.section_title}>지금 채용중인 공고</p>
 
+            <div className={styles.hiring_list}>
+              <ul>
+                { hiringList.map((hiring, index) => 
+                  <li key={index}>
+                    <div className={styles.hiring_image}>
+                      <Webp src={hiring.imageUrl} />
+                    </div>
+                    <div className={styles.hiring_description}>
+                      <p className={styles.hiring_title}>{hiring.hiringTitle}</p>
+                      <p className={styles.company_name}>{hiring.hiringCompanyName}</p>
+                      <p className={styles.company_location}>{hiring.hiringCompanyLocation}</p>
+                    </div>
+                  </li>
+                )}
+              </ul>
+            </div>
+          </div>
+
+          {/* 이공계 계열 종류 */}
+          <div className={styles.category_list_section}>
+            <p className={styles.section_title}>어떤 분야의 채용 공고를 찾으시나요?</p>
+
+            <div className={styles.category_list}>
+              <ul>
+                { categoryList.map((category, index) => 
+                  <li key={index}>
+                    <Webp src={category.imageUrl} />
+                    <p className={styles.category_name}>{category.categoryName}</p>
+                  </li>
+                )}
+              </ul>
+            </div>
           </div>
         </div>
       </>

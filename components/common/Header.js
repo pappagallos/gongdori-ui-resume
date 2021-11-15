@@ -13,7 +13,8 @@ const Header = () => {
                 <div className={styles.menu_area}>
                     <Webp src='/assets/images/common/logo.png' />
                     <ul>
-                        <li>채용 공고</li>
+                        <li>채용공고</li>
+                        <li>대외활동/공모전</li>
                     </ul>
                 </div>
                 <div className={styles.sign_area}>
