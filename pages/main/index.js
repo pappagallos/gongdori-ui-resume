@@ -273,6 +273,28 @@ export default function Main() {
             </div>
           </div>
 
+          {/* 지금 진행중인 대외활동 */}
+          <div className={styles.hiring_list_section}>
+            <p className={styles.section_title}>지금 진행중인 대외활동</p>
+
+            <div className={styles.hiring_list}>
+              <ul>
+                { hiringList.map((hiring) => 
+                  <li key={utilCommon.getRandomKey()}>
+                    <div className={styles.hiring_image}>
+                      <Webp src={hiring.imageUrl} />
+                    </div>
+                    <div className={styles.hiring_description}>
+                      <p className={styles.hiring_title}>{hiring.hiringTitle}</p>
+                      <p className={styles.company_name}>{hiring.hiringCompanyName}</p>
+                      <p className={styles.company_location}>{hiring.hiringCompanyLocation}</p>
+                    </div>
+                  </li>
+                )}
+              </ul>
+            </div>
+          </div>
+
           {/* 이공계 계열 종류 */}
           <div className={styles.category_list_section}>
             <p className={styles.section_title}>어떤 분야의 채용 공고를 찾으시나요?</p>
