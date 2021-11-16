@@ -1,0 +1,89 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+
+    width: 100%;
+    max-width: 1155px;
+    padding: 20px 0;
+    margin: 0 auto;
+
+    .contents_area {
+        width: 825px;
+        margin-right: 20px;
+    }
+
+    .apply_area {
+        width: calc(1155px - 825px - 20px);
+        height: inherit;
+
+        .static_apply_tab {
+            position: sticky;
+            top: 20px;
+            
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+
+            button {
+                width: 100%;
+                padding: 15px;
+                border-radius: 5px;
+                margin-bottom: 7px;
+                font-weight: 500;
+            }
+
+            .company_info {
+                .company_name {
+                    font-size: 1.3rem;
+                    font-weight: 700;
+                    margin: 0 0 3px 0;
+                    padding: 0;
+                }
+
+                .category {
+                    font-size: .9rem;
+                    font-weight: 500;
+                    margin: 0 0 10px 0;
+                    padding: 0;
+                    color: #6b6b6b;
+                }
+            }
+
+            .apply_controller {
+                width: 100%;
+                height: auto;
+
+                .submit {
+                    background: #000;
+                    border: 1px solid #000;
+                    color: #fff;
+                }
+    
+                .favorit {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border: 1px solid #757575;
+                    color: #757575;
+
+                    img { 
+                        margin-right: 5px;
+                        margin-top: 3px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.swiper_container {
+    width: 100%;
+    height: 500px;
+    border-radius: 5px;
+    overflow: hidden;
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+}
