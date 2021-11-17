@@ -418,7 +418,8 @@ export default function PostEdit() {
                             </p>
                         </div>
                         <div className={styles.editor}>
-                            <ToastEditor 
+                            <ToastEditor
+                                height={600}
                                 editorRef={editorRef}
                                 onChange={() => handleUpdateEditor(1)}
                                 placeholder='채용공고를 자세하고 자유로운 양식으로 작성해주세요. 작성해주신 채용공고는 1시간 이내에 이공계사람들에서 심사 후 승인되면 보여집니다.'
