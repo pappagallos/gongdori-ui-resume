@@ -14,15 +14,14 @@ SwiperCore.use([Navigation, Autoplay]);
 export default function Post() {
     const [swiper, setSwiper] = useState();
     const [slideIndex, setSlideIndex] = useState(0);
-    const [slideList, setSlideList] = useState([]);
+    const [postContents, setPostContents] = useState([]);
     const [isBookmark, setIsBookmark] = useState(false);
 
-    function fetchSlideList() {
-        setSlideList([
-            {
-                imageUrl: '/assets/images/main/category/develop.jpg'
-            }
-        ])
+    function fetchPostContents() {
+        setPostContents({
+            images: ['/assets/images/main/category/develop.jpg'],
+            contents: '<p>테스트 입니다.</p>'
+        });
     }
 
     function triggerBookmark() {
@@ -30,8 +29,10 @@ export default function Post() {
     }
 
     useEffect(() => {
-        fetchSlideList();
+        fetchPostContents();
     }, []);
+
+    if (!postContents.images && !postContents.contents) return null;
 
     return (
         <div className={styles.container}>
@@ -57,14 +58,21 @@ export default function Post() {
                     }}
                     className={styles.swiper_container}
                 >
-                { slideList.map((slide) => 
-                    <SwiperSlide className={styles.swiper_slide}
-                        key={utilCommon.getRandomKey()}>
-                        <Webp src={slide.imageUrl} width='100%' height='100%' />
-                    </SwiperSlide>
+                {
+                    postContents.images.map((image) => 
+                        <SwiperSlide className={styles.swiper_slide}
+                            key={utilCommon.getRandomKey()}>
+                            <Webp src={image} width='100%' height='100%' />
+                        </SwiperSlide>
                     )
                 }
                 </Swiper>
+
+                {/* 포스트 내용 */}
+                <p className={styles.contents_title}>React.js 프론트엔드 개발자를 모집합니다.</p>
+                <span className={styles.company_name}>이공계사람들</span>
+                <span className={styles.company_location}>서울</span>
+                <div className={styles.contents} dangerouslySetInnerHTML={{ __html: postContents.contents }} />
             </div>
             <div className={styles.apply_area}>
                 <div className={styles.static_apply_tab}>

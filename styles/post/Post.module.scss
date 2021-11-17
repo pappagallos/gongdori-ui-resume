@@ -10,6 +10,37 @@
     .contents_area {
         width: 825px;
         margin-right: 20px;
+
+        .contents_title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 15px 0 10px 0;
+            padding: 0;
+        }
+
+        .company_name {
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 0;
+
+            &::after {
+                content: '|';
+                margin: 0 5px;
+                color: #e6e6e6;
+            }
+        }
+
+        .company_location {
+            font-size: 1.1rem;
+            color: #9e9e9e;
+        }
+
+        .contents {
+            font-size: 1.1rem;
+            width: 100%;
+            height: auto;
+            margin: 20px 0;
+        }
     }
 
     .apply_area {
@@ -25,8 +56,12 @@
             border-radius: 5px;
 
             button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
                 width: 100%;
-                padding: 15px;
+                height: 45px;
                 border-radius: 5px;
                 margin-bottom: 7px;
                 font-weight: 500;
@@ -60,9 +95,6 @@
                 }
     
                 .favorit {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
                     border: 1px solid #757575;
                     color: #757575;
 
