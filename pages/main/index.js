@@ -189,10 +189,10 @@ export default function Main() {
             setSwiper(swiper);
           }}
         >
-          { slideList.map((slide) => 
+          { slideList.map((slide, index) => 
               <SwiperSlide className={styles.swiper_slide} 
                 style={{ background: slide.design.slideBackgroundColor, color: slide.design.slideFontColor }} 
-                key={utilCommon.getRandomKey()}>
+                key={index}>
                 <div className={styles.slide_container}>
                   <div className={styles.slide_content_area}>
                     <div className={styles.slide_left_content}>
@@ -240,7 +240,7 @@ export default function Main() {
               <ul>
                 {slideList.map((slide, index) => 
                   <li className={`${slideIndex === index ? styles.current : ''} ${styles.cursor}`} 
-                    onClick={() => swiper.slideTo(index + 1)} key={utilCommon.getRandomKey()}>
+                    onClick={() => swiper.slideTo(index + 1)} key={index}>
                       {slide.contents.tag}
                   </li>
                 )}
@@ -257,8 +257,8 @@ export default function Main() {
 
             <div className={styles.hiring_list}>
               <ul>
-                { hiringList.map((hiring) => 
-                  <li key={utilCommon.getRandomKey()}>
+                { hiringList.map((hiring, index) => 
+                  <li key={index}>
                     <div className={styles.hiring_image}>
                       <Webp src={hiring.imageUrl} />
                     </div>
@@ -279,8 +279,8 @@ export default function Main() {
 
             <div className={styles.hiring_list}>
               <ul>
-                { hiringList.map((hiring) => 
-                  <li key={utilCommon.getRandomKey()}>
+                { hiringList.map((hiring, index) => 
+                  <li key={index}>
                     <div className={styles.hiring_image}>
                       <Webp src={hiring.imageUrl} />
                     </div>
@@ -301,8 +301,8 @@ export default function Main() {
 
             <div className={styles.category_list}>
               <ul>
-                { categoryList.map((category) => 
-                  <li key={utilCommon.getRandomKey()}>
+                { categoryList.map((category, index) => 
+                  <li key={index}>
                     <Webp src={category.imageUrl} />
                     <p className={styles.category_name}>{category.categoryName}</p>
                   </li>

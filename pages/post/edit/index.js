@@ -213,8 +213,6 @@ export default function PostEdit() {
             }
         }
 
-        console.log(searchResult);
-
         return searchResult;
     }
 
