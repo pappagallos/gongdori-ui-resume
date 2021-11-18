@@ -10,6 +10,7 @@ import styles from '../../../styles/post/PostEdit.module.scss';
 import Webp from '../../../components/common/Webp';
 
 import walfareJSON from './walfare_list.json';
+import utilCommon from '../../../utils/common';
 
 export default function PostEdit() {
     const [postTitle, setPostTitle] = useState('');                     // 채용공고 제목 저장용
@@ -40,7 +41,10 @@ export default function PostEdit() {
     const [qualification, setQualification] = useState('');             // 자격요건 입력
     const [qualificationList, setQualificationList] = useState([]);     // 자격요건 리스트
     const [benefit, setBenefit] = useState('');                         // 우대사항 입력
-    const [benefitList, setBenefitList] = useState([]);                 // 자격요건 리스트
+    const [benefitList, setBenefitList] = useState([]);                 // 우대사항 리스트
+    const [walfare, setWalfare] = useState('');                         // 복지 및 혜택 입력
+    const [walfareList, setWalfareList] = useState([]);                 // 복지 및 혜택 리스트
+    const [walfareAutoComplete, setWalfareAutoComplete] = useState([]); // 복지 및 혜택 자동완성기 결과
     const [tabIndex, setTabIndex] = useState(0);
     const [tempSave, setTempSave] = useState({
         editor1: '',
@@ -195,11 +199,13 @@ export default function PostEdit() {
 
         const limit = keys.length;
         for (let i = 0; i < limit; i++) {
-            const searchList = walfareList[keys[i]].list.filter(v => v.list_name.indexOf(keyword) >= 0);
+            const key = keys[i];
+            const searchList = walfareList[key].list.filter(v => v.list_name.indexOf(keyword) >= 0);
             
             if (searchList.length > 0) {
                 const searchObj = {
-                    key: keys[i],
+                    key: key,
+                    name: walfareList[key].name,
                     searchList,
                 };
 
@@ -415,6 +421,15 @@ export default function PostEdit() {
     }
     // }
 
+    // 혜택 및 복지 관련 함수 {
+    function handleUpdateWalfare(e) {
+        const keyword = e.target.value;
+        setWalfareAutoComplete(() => handleSearchWalfareList(keyword));
+
+        setWalfare(keyword);
+    }
+    // }
+
     function changeFile(event, index) {
         event.preventDefault();
         
@@ -460,7 +475,8 @@ export default function PostEdit() {
                        <input type='text' 
                             value={postTitle} 
                             onChange={handleUpdateTitle} 
-                            placeholder='채용공고 제목을 입력해주세요' 
+                            placeholder='채용공고 제목을 입력해주세요'
+                            autoFocus
                        />
                     </div>
                 </section>
@@ -746,7 +762,89 @@ export default function PostEdit() {
                                 </p>
                             </div>
                             <div className={styles.editor}>
+                                <div className={styles.controller}>
+                                    <input className={styles.textbox} 
+                                        value={walfare} 
+                                        onChange={handleUpdateWalfare}
+                                        onKeyPress={(e) => {
+                                            if (e.key === 'Enter') {
+                                                // handleAddWalfare();
+                                            }
+                                        }}
+                                    />
+                                    <button className={styles.button_add} /* onClick={handleAddWalfare} */>추가하기</button>
+                                </div>
                                 
+                                { (walfare.length > 0 && walfareAutoComplete.length > 0) && 
+                                    <div className={styles.auto_complete_area}>
+                                        <p className={styles.auto_complete_notice}>
+                                            <Webp src='/assets/images/post/information.png' />
+                                            자동완성기에 나열된 복지를 클릭하시거나 입력한 복지가 없으시면 [Enter] 혹은 [추가하기]를 눌러주세요.
+                                        </p>
+
+                                        {
+                                            walfareAutoComplete.map((complete) => {
+                                                const subList = complete.searchList.map((walfareName) => 
+                                                    <li key={utilCommon.getRandomKey()}>
+                                                        { walfareName.list_name }
+                                                    </li>
+                                                )
+
+                                                return  (
+                                                    <div key={complete.key} className={styles.auto_complete_item}>
+                                                        <p className={styles.walfare_category}>{complete.name}</p>
+                                                        <div className={styles.walfare_list_area}>
+                                                            <ul>
+                                                                { subList }
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })
+                                        }
+                                    </div>
+                                }
+
+                                <div className={styles.add_list}>
+                                    <ul>
+                                        { walfareList.map((walfare, index) => 
+                                            <li key={`walfare${index}`}>
+                                                <div className={styles.list_content}>
+                                                    { !walfare.isModify &&
+                                                        <>
+                                                            <span>{walfare.walfare}</span>
+                                                            <div className={styles.buttons_area}>
+                                                                <div className={`${styles.button} ${styles.edit}`} 
+                                                                    onClick={() => handleModifyWalfare(index)}>
+                                                                    수정
+                                                                </div>
+                                                                <div className={`${styles.button} ${styles.remove}`} 
+                                                                    onClick={() => handleRemoveWalfare(index)}>
+                                                                    삭제
+                                                                </div>
+                                                            </div>
+                                                        </>
+                                                    }
+                                                    { walfare.isModify && 
+                                                        <>
+                                                            <input value={walfare.walfare} 
+                                                                onChange={(e) => handleModifyUpdateWalfare(e, index)}
+                                                                onKeyPress={(e) => {
+                                                                    if (e.key === 'Enter') {
+                                                                        // handleModifyWalfare(index);
+                                                                    }
+                                                                }} />
+                                                            <div className={`${styles.button} ${styles.confirm}`} 
+                                                                onClick={() => handleModifyWalfare(index)}>
+                                                                확인
+                                                            </div>
+                                                        </>
+                                                    }
+                                                </div>
+                                            </li>
+                                        )}
+                                    </ul>
+                                </div>
                             </div>
                         </section>
                     </>
