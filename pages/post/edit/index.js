@@ -67,7 +67,9 @@ export default function PostEdit() {
                 validContents: false
             });
         }
+    }, [editorWordCounter.editor1]);
 
+    useEffect(() => {
         if (editorWordCounter.editor2 >= 200) {
             setValidateList({
                 ...validateList,
@@ -79,7 +81,9 @@ export default function PostEdit() {
                 validAboutCompany: false
             });
         }
+    }, [editorWordCounter.editor2]);
 
+    useEffect(() => {
         if (editorWordCounter.editor3 >= 200) {
             setValidateList({
                 ...validateList,
@@ -91,7 +95,7 @@ export default function PostEdit() {
                 validMainJob: false
             });
         }
-    }, [editorWordCounter]);
+    }, [editorWordCounter.editor3]);
 
     useEffect(() => {
         const container = mapRef.current;
