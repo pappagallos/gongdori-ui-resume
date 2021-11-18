@@ -110,6 +110,7 @@
                         flex-wrap: wrap;
 
                         li {
+                            transition: .25s;
                             color: #979797;
                             font-size: 1rem;
                             margin-right: 7px;
@@ -120,6 +121,11 @@
                             padding: 4px 7px;
                             white-space: nowrap;
                             cursor: pointer;
+
+                            &:hover {
+                                transition: .25s;
+                                border: 1px solid #949494;
+                            }
                         }
                     }
                 }
