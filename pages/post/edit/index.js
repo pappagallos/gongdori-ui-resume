@@ -425,6 +425,14 @@ export default function PostEdit() {
         setWalfare(keyword);
     }
 
+    function handleModifyUpdateWalfare(e, index) {
+        const tempWalfareList = [...walfareList];
+
+        tempWalfareList[index].walfare = e.target.value;
+
+        setWalfareList(tempWalfareList);
+    }
+
     function handleAddWalfare(keyword, isExist) {
         const tempWalfareList = [...walfareList];
 
@@ -478,6 +486,22 @@ export default function PostEdit() {
         if (!keyword) {
             setWalfare('');
         }
+    }
+
+    function handleModifyWalfare(index) {
+        const tempWalfareList = [...walfareList];
+
+        tempWalfareList[index].isModify = !tempWalfareList[index].isModify;
+
+        setWalfareList(tempWalfareList);
+    }
+
+    function handleRemoveWalfare(index) {
+        const tempWalfareList = [...walfareList];
+
+        tempWalfareList.splice(index, 1);
+
+        setWalfareList(tempWalfareList);
     }
     // }
 
