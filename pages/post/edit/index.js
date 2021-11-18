@@ -332,9 +332,8 @@ export default function PostEdit() {
 
     function handleAddQualification() {
         if (qualification.length <= 0) {
-            toast.warn('아무것도 입력되지 않았어요.', {
-                position: "bottom-center",
-                autoClose: 3000,
+            toast.info('추가하실 내용을 입력해주세요.', {
+                position: "bottom-center"
             });
             return;
         }
@@ -383,9 +382,8 @@ export default function PostEdit() {
 
     function handleAddBenefit() {
         if (benefit.length <= 0) {
-            toast.warn('아무것도 입력되지 않았어요.', {
-                position: "bottom-center",
-                autoClose: 3000,
+            toast.info('추가하실 내용을 입력해주세요.', {
+                position: "bottom-center"
             });
             return;
         }
@@ -428,10 +426,11 @@ export default function PostEdit() {
     }
 
     function handleAddWalfare(keyword, isExist) {
-        // 이미 등록된 복지인데 한 번 더 클릭한 경우 제거하겠다는 의미로 받아들이고 삭제하는 로직 진행 후 탈출
-        if (isExist) {
-            const tempWalfareList = [...walfareList];
-            const targetIndex = tempWalfareList.findIndex((filteredWalfare) => filteredWalfare.walfare === keyword);
+        const tempWalfareList = [...walfareList];
+
+        // handleAddWalfare 함수는 다양한 상황에서 자주 사용되는데, 이미 등록된 복지인데 한 번 더 클릭한 경우 제거하겠다는 의미로 받아들이고 삭제하는 로직 진행 후 탈출
+        if (keyword && isExist) {
+            const targetIndex = tempWalfareList.findIndex((findedWalfare) => findedWalfare.walfare === keyword);
             
             tempWalfareList.splice(targetIndex, 1);
             setWalfareList(tempWalfareList);
@@ -439,6 +438,17 @@ export default function PostEdit() {
             return;
         }
 
+        // 이번에는 사용자가 등록한 내용을 다시 한 번 중복 등록하게 될 경우 토스트 메세지를 띄우고 탈출
+        const isDuplicated = tempWalfareList.filter((filteredWalfare) => filteredWalfare.walfare === walfare).length > 0 ? true : false;
+        if (isDuplicated) {
+            toast.info('이미 동일한 내용의 복지가 존재합니다.', {
+                position: "bottom-center",
+            });
+
+            return;
+        }
+
+        // 위 조건에 모두 해당되지 않았다면 아래 복지 등록 로직을 실행
         let tempWalfare = keyword ? keyword : walfare;
 
         const walfareObject = {
@@ -448,15 +458,12 @@ export default function PostEdit() {
 
         if (!keyword) {
             if (walfare.length <= 0) {
-                toast.warn('아무것도 입력되지 않았어요.', {
+                toast.info('추가하실 내용을 입력해주세요.', {
                     position: "bottom-center",
-                    autoClose: 3000,
                 });
                 return;
             }
         }
-
-        const tempWalfareList = [...walfareList];
 
         walfareObject.walfare = tempWalfare;
 
@@ -813,7 +820,7 @@ export default function PostEdit() {
                                             }
                                         }}
                                     />
-                                    <button className={styles.button_add} onClick={handleAddWalfare}>추가하기</button>
+                                    <button className={styles.button_add} onClick={() => handleAddWalfare()}>추가하기</button>
                                 </div>
                                 
                                 <div className={styles.auto_complete_area} style={{ display: (walfare.length >= 2 && walfareAutoComplete.length > 0) ? 'block' : 'none' }}>
@@ -829,7 +836,7 @@ export default function PostEdit() {
                                                     const isExist = walfareList.filter((filteredWalfare) => filteredWalfare.walfare === walfareName.list_name).length > 0 ? true : false;
 
                                                     return (
-                                                        <li key={utilCommon.getRandomKey()} onClick={() => handleAddWalfare(walfareName.list_name, isExist)} className={isExist ? styles.clicked_list : undefined}>
+                                                        <li key={index} onClick={() => handleAddWalfare(walfareName.list_name, isExist)} className={isExist ? styles.clicked_list : undefined}>
                                                             { walfareName.list_name }
                                                         </li>
                                                     )
