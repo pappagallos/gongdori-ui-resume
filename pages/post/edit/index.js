@@ -439,13 +439,16 @@ export default function PostEdit() {
         }
 
         // 이번에는 사용자가 등록한 내용을 다시 한 번 중복 등록하게 될 경우 토스트 메세지를 띄우고 탈출
-        const isDuplicated = tempWalfareList.filter((filteredWalfare) => filteredWalfare.walfare === walfare).length > 0 ? true : false;
-        if (isDuplicated) {
-            toast.info('이미 동일한 내용의 복지가 존재합니다.', {
-                position: "bottom-center",
-            });
+        if (!keyword && !isExist) {
+            const isDuplicated = tempWalfareList.filter((filteredWalfare) => filteredWalfare.walfare === walfare).length > 0 ? true : false;
 
-            return;
+            if (isDuplicated) {
+                toast.info('이미 동일한 내용의 복지가 존재합니다.', {
+                    position: "bottom-center",
+                });
+
+                return;
+            }
         }
 
         // 위 조건에 모두 해당되지 않았다면 아래 복지 등록 로직을 실행
