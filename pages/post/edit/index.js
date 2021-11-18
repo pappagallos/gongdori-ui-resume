@@ -427,7 +427,18 @@ export default function PostEdit() {
         setWalfare(keyword);
     }
 
-    function handleAddWalfare(keyword) {
+    function handleAddWalfare(keyword, isExist) {
+        // 이미 등록된 복지인데 한 번 더 클릭한 경우 제거하겠다는 의미로 받아들이고 삭제하는 로직 진행 후 탈출
+        if (isExist) {
+            const tempWalfareList = [...walfareList];
+            const targetIndex = tempWalfareList.findIndex((filteredWalfare) => filteredWalfare.walfare === keyword);
+            
+            tempWalfareList.splice(targetIndex, 1);
+            setWalfareList(tempWalfareList);
+
+            return;
+        }
+
         let tempWalfare = keyword ? keyword : walfare;
 
         const walfareObject = {
@@ -450,8 +461,13 @@ export default function PostEdit() {
         walfareObject.walfare = tempWalfare;
 
         tempWalfareList.push(walfareObject);
-        setWalfare('');
         setWalfareList(tempWalfareList);
+
+        // 자동완성기를 통해 클릭한 경우 다른 복지도 연속으로 클릭하고 싶을 수 있기 때문에 닫히지 않도록 직접 입력시에만 동작
+        // !keyword 인 경우는 직접 복지를 입력한 경우에 해당
+        if (!keyword) {
+            setWalfare('');
+        }
     }
     // }
 
@@ -808,11 +824,17 @@ export default function PostEdit() {
 
                                     {
                                         walfareAutoComplete.map((complete) => {
-                                            const subList = complete.searchList.map((walfareName) => 
-                                                <li key={utilCommon.getRandomKey()} onClick={() => handleAddWalfare(walfareName.list_name)}>
-                                                    { walfareName.list_name }
-                                                </li>
-                                            )
+                                            const subList = complete.searchList.map((walfareName, index) => {
+                                                if (walfare.length >= 2) {
+                                                    const isExist = walfareList.filter((filteredWalfare) => filteredWalfare.walfare === walfareName.list_name).length > 0 ? true : false;
+
+                                                    return (
+                                                        <li key={utilCommon.getRandomKey()} onClick={() => handleAddWalfare(walfareName.list_name, isExist)} className={isExist ? styles.clicked_list : undefined}>
+                                                            { walfareName.list_name }
+                                                        </li>
+                                                    )
+                                                }
+                                            })
 
                                             return  (
                                                 <div key={complete.key} className={styles.auto_complete_item}>
