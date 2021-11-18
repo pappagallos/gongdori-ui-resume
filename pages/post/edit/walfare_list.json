@@ -1,0 +1,555 @@
+{
+    "insurance": {
+        "name": "보험가입",
+        "list": [
+            {
+                "list_name": "국민연금"
+            },
+            {
+                "list_name": "고용보험"
+            },
+            {
+                "list_name": "산재보험"
+            },
+            {
+                "list_name": "건강보험"
+            },
+            {
+                "list_name": "상해보험"
+            }
+        ]
+    },
+    "pension": {
+        "name": "연금가입",
+        "list": [
+            {
+                "list_name": "퇴직연금"
+            },
+            {
+                "list_name": "사학연금"
+            },
+            {
+                "list_name": "공무원연금"
+            }
+        ]
+    },
+    "bonus": {
+        "name": "보너스/인센티브",
+        "list": [
+            {
+                "list_name": "정기보너스"
+            },
+            {
+                "list_name": "장기근속자포상"
+            },
+            {
+                "list_name": "우수사원포상"
+            },
+            {
+                "list_name": "스톡옵션"
+            },
+            {
+                "list_name": "인센티브제"
+            },
+            {
+                "list_name": "MBO성과급"
+            }
+        ]
+    },
+    "extra_pay": {
+        "name": "수당제도",
+        "list": [
+            {
+                "list_name": "야근수당"
+            },
+            {
+                "list_name": "휴일수당"
+            },
+            {
+                "list_name": "특근수당"
+            },
+            {
+                "list_name": "연차수당"
+            },
+            {
+                "list_name": "직급수당"
+            },
+            {
+                "list_name": "직책수당"
+            },
+            {
+                "list_name": "자격증수당"
+            },
+            {
+                "list_name": "장기근속수당"
+            },
+            {
+                "list_name": "위험수당"
+            },
+            {
+                "list_name": "가족수당"
+            },
+            {
+                "list_name": "보육수당"
+            },
+            {
+                "list_name": "연구수당"
+            }
+        ]
+    },
+    "club": {
+        "name": "동호회",
+        "list": [
+            {
+                "list_name": "사내동호회 운영"
+            },
+            {
+                "list_name": "사내동호회 지원"
+            }
+        ]
+    },
+    "condolences": {
+        "name": "경조",
+        "list": [
+            {
+                "list_name": "사우회(경조사회)"
+            },
+            {
+                "list_name": "경조휴일"
+            },
+            {
+                "list_name": "경조사비"
+            },
+            {
+                "list_name": "조화/화환"
+            },
+            {
+                "list_name": "과일바구니"
+            }
+        ]
+    },
+    "holiday": {
+        "name": "명절/기념일",
+        "list": [
+            {
+                "list_name": "명절선물"
+            },
+            {
+                "list_name": "귀향여비"
+            },
+            {
+                "list_name": "귀성차량 운행"
+            },
+            {
+                "list_name": "창립기념일 휴무"
+            },
+            {
+                "list_name": "창립기념일 선물"
+            },
+            {
+                "list_name": "생일선물/파티"
+            },
+            {
+                "list_name": "결혼기념일 선물"
+            }
+        ]
+    },
+    "medical": {
+        "name": "의료/건강",
+        "list": [
+            {
+                "list_name": "건강검진"
+            },
+            {
+                "list_name": "진료비 지원"
+            },
+            {
+                "list_name": "금연수당"
+            },
+            {
+                "list_name": "체력단련실"
+            },
+            {
+                "list_name": "헬스비"
+            },
+            {
+                "list_name": "상담실"
+            },
+            {
+                "list_name": "무료진료"
+            }
+        ]
+    },
+    "parenting": {
+        "name": "출산/육아",
+        "list": [
+            {
+                "list_name": "수유실"
+            },
+            {
+                "list_name": "어린이집"
+            },
+            {
+                "list_name": "산전 후 휴가"
+            },
+            {
+                "list_name": "육아휴직"
+            },
+            {
+                "list_name": "보건휴가"
+            }
+        ]
+    },
+    "office": {
+        "name": "사무실",
+        "list": [
+            {
+                "list_name": "휴게실"
+            },
+            {
+                "list_name": "수면실"
+            },
+            {
+                "list_name": "당직실"
+            },
+            {
+                "list_name": "여성전용휴게실"
+            },
+            {
+                "list_name": "흡연실"
+            },
+            {
+                "list_name": "샤워실"
+            },
+            {
+                "list_name": "회의실"
+            },
+            {
+                "list_name": "공기청정기"
+            },
+            {
+                "list_name": "카페테리아"
+            },
+            {
+                "list_name": "무선인터넷"
+            },
+            {
+                "list_name": "게임방"
+            },
+            {
+                "list_name": "화장실비데"
+            },
+            {
+                "list_name": "시력보호모니터"
+            },
+            {
+                "list_name": "손목보호마우스"
+            },
+            {
+                "list_name": "회사전용사옥"
+            },
+            {
+                "list_name": "휴양시설제공"
+            }
+        ]
+    },
+    "disabled": {
+        "name": "장애인 편의시설",
+        "list": [
+            {
+                "list_name": "건물 내 경사로"
+            },
+            {
+                "list_name": "휄체어용 난간"
+            },
+            {
+                "list_name": "유도점자블록"
+            },
+            {
+                "list_name": "장애인 전용 책상"
+            },
+            {
+                "list_name": "장애인 화장실"
+            },
+            {
+                "list_name": "장애인 세면대"
+            },
+            {
+                "list_name": "장애인 통근버스"
+            },
+            {
+                "list_name": "장애인 전용주차장"
+            },
+            {
+                "list_name": "장애인 엘레베이터"
+            },
+            {
+                "list_name": "장애인 기숙사"
+            },
+            {
+                "list_name": "비상경보장치"
+            },
+            {
+                "list_name": "문턱없음"
+            }
+        ]
+    },
+    "costume": {
+        "name": "의류/복장",
+        "list": [
+            {
+                "list_name": "자유복장"
+            },
+            {
+                "list_name": "캐주얼데이"
+            },
+            {
+                "list_name": "의복비"
+            },
+            {
+                "list_name": "유니폼 지급"
+            },
+            {
+                "list_name": "노타이"
+            },
+            {
+                "list_name": "품위유지비"
+            }
+        ]
+    },
+    "food": {
+        "name": "식사",
+        "list": [
+            {
+                "list_name": "아침제공"
+            },
+            {
+                "list_name": "점심제공"
+            },
+            {
+                "list_name": "저녁제공"
+            },
+            {
+                "list_name": "간식제공"
+            },
+            {
+                "list_name": "냉장고"
+            },
+            {
+                "list_name": "전자레인지"
+            },
+            {
+                "list_name": "식비 지원"
+            },
+            {
+                "list_name": "식권제공"
+            },
+            {
+                "list_name": "음료제공"
+            },
+            {
+                "list_name": "구내식당"
+            }
+        ]
+    },
+    "dwelling": {
+        "name": "주거",
+        "list": [
+            {
+                "list_name": "기숙사 운영"
+            },
+            {
+                "list_name": "사택제공"
+            },
+            {
+                "list_name": "사원아파트 임대"
+            },
+            {
+                "list_name": "주택자금 융자"
+            }
+        ]
+    },
+    "transfer": {
+        "name": "교통",
+        "list": [
+            {
+                "list_name": "차량유류비 지원"
+            },
+            {
+                "list_name": "통근버스 운행"
+            },
+            {
+                "list_name": "야간교통비 지원"
+            },
+            {
+                "list_name": "주차장"
+            },
+            {
+                "list_name": "주차비 지원"
+            },
+            {
+                "list_name": "회사차량 지원"
+            }
+        ]
+    },
+    "commute": {
+        "name": "출/퇴근",
+        "list": [
+            {
+                "list_name": "유연근무제"
+            },
+            {
+                "list_name": "출퇴근 시간선택제"
+            },
+            {
+                "list_name": "자율근무제"
+            },
+            {
+                "list_name": "강제퇴근제"
+            }
+        ]
+    },
+    "supplies": {
+        "name": "지급품",
+        "list": [
+            {
+                "list_name": "개인직통전화"
+            },
+            {
+                "list_name": "개인노트북"
+            },
+            {
+                "list_name": "개인PC"
+            },
+            {
+                "list_name": "듀얼모니터"
+            },
+            {
+                "list_name": "명함"
+            },
+            {
+                "list_name": "사원증"
+            },
+            {
+                "list_name": "복지카드"
+            },
+            {
+                "list_name": "자회사 제품할인"
+            },
+            {
+                "list_name": "콘도/리조트 이용권"
+            }
+        ]
+    },
+    "education": {
+        "name": "교육",
+        "list": [
+            {
+                "list_name": "신입사원교육"
+            },
+            {
+                "list_name": "직무능력향상교육"
+            },
+            {
+                "list_name": "리더쉽강화교육"
+            },
+            {
+                "list_name": "해외연수 지원"
+            },
+            {
+                "list_name": "도서구입비 지원"
+            },
+            {
+                "list_name": "MBA과정 지원"
+            },
+            {
+                "list_name": "멘토링제도"
+            },
+            {
+                "list_name": "외국어강의 지원"
+            },
+            {
+                "list_name": "자격증취득 지원"
+            },
+            {
+                "list_name": "교육비 지원"
+            },
+            {
+                "list_name": "자기계발비 지원"
+            }
+        ]
+    },
+    "vacation": {
+        "name": "휴가",
+        "list": [
+            {
+                "list_name": "연차"
+            },
+            {
+                "list_name": "월차"
+            },
+            {
+                "list_name": "정기휴가"
+            },
+            {
+                "list_name": "경조휴가제"
+            },
+            {
+                "list_name": "반차"
+            },
+            {
+                "list_name": "위로휴가"
+            },
+            {
+                "list_name": "리프레쉬 휴가"
+            },
+            {
+                "list_name": "창립일 휴무"
+            },
+            {
+                "list_name": "노동절 휴무"
+            },
+            {
+                "list_name": "휴가비 지원"
+            },
+            {
+                "list_name": "포상휴가"
+            }
+        ]
+    },
+    "event": {
+        "name": "행사",
+        "list": [
+            {
+                "list_name": "시무식"
+            },
+            {
+                "list_name": "종무식"
+            },
+            {
+                "list_name": "창립일행사"
+            },
+            {
+                "list_name": "등반대회"
+            },
+            {
+                "list_name": "우수사원시상식"
+            },
+            {
+                "list_name": "워크샵"
+            },
+            {
+                "list_name": "OT"
+            },
+            {
+                "list_name": "MT"
+            },
+            {
+                "list_name": "체육대회"
+            },
+            {
+                "list_name": "야유회"
+            }
+        ]
+    }
+}

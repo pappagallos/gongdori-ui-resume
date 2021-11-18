@@ -9,6 +9,8 @@ const ToastEditor = dynamic(() => import('../../../components/editor/ToastEditor
 import styles from '../../../styles/post/PostEdit.module.scss';
 import Webp from '../../../components/common/Webp';
 
+import walfareJSON from './walfare_list.json';
+
 export default function PostEdit() {
     const [postTitle, setPostTitle] = useState('');                     // 채용공고 제목 저장용
     const [fullAddress, setFullAddress] = useState('');                 // 다음카카오 주소 검색 API에서 가져온 전체 주소 저장용
@@ -185,6 +187,31 @@ export default function PostEdit() {
     /*************************************************************
      * 함수
      *************************************************************/
+    function handleSearchWalfareList(keyword) {
+        const walfareList = walfareJSON;
+        const keys = Object.keys(walfareList);
+        
+        const searchResult = [];
+
+        const limit = keys.length;
+        for (let i = 0; i < limit; i++) {
+            const searchList = walfareList[keys[i]].list.filter(v => v.list_name.indexOf(keyword) >= 0);
+            
+            if (searchList.length > 0) {
+                const searchObj = {
+                    key: keys[i],
+                    searchList,
+                };
+
+                searchResult.push(searchObj);
+            }
+        }
+
+        console.log(searchResult);
+
+        return searchResult;
+    }
+
     function handleChangeTab(index) {
         // 동일한 탭을 다시 눌렀을 경우
         if (index === tabIndex) return;
