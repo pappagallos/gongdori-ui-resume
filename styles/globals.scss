@@ -54,6 +54,10 @@ input {
   }
 }
 
+p, span {
+  word-break: break-all;
+}
+
 * {
   box-sizing: border-box;
 }

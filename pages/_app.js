@@ -1,9 +1,13 @@
 import '../styles/globals.scss';
+import { useEffect } from 'react';
+import { ToastContainer } from 'react-toastify';
 
 // components
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
-import { useEffect } from 'react';
+
+// styles
+import 'react-toastify/dist/ReactToastify.min.css';
 
 function MyApp({ Component, pageProps }) {
   // 채널톡 연동
@@ -53,6 +57,7 @@ function MyApp({ Component, pageProps }) {
       <Header />
       <Component {...pageProps} />
       <Footer />
+      <ToastContainer />
     </>
   );
 }

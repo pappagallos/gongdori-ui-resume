@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import DaumPostcode from 'react-daum-postcode';
+import { toast } from 'react-toastify';
 
 import dynamic from 'next/dynamic';
 
@@ -7,27 +8,32 @@ const ToastEditor = dynamic(() => import('../../../components/editor/ToastEditor
 
 import styles from '../../../styles/post/PostEdit.module.scss';
 import Webp from '../../../components/common/Webp';
+import utilCommon from '../../../utils/common';
 
 export default function PostEdit() {
-    const [postTitle, setPostTitle] = useState('');
-    const [fullAddress, setFullAddress] = useState('');
-    const [showMap, setShowMap] = useState(false);
-    const [validateList, setValidateList] = useState({
+    const [postTitle, setPostTitle] = useState('');                     // 채용공고 제목 저장용
+    const [fullAddress, setFullAddress] = useState('');                 // 다음카카오 주소 검색 API에서 가져온 전체 주소 저장용
+    const [showMap, setShowMap] = useState(false);                      // 근무지 작성 시 카카오 지도 보여주기 여부
+    const [validateList, setValidateList] = useState({                  // 작성하기 전 검증
         validPostTitle: false,
         validPictures: false,
         validContents: false,
         validAddress: false,
     });
-    const [images, setImages] = useState({
+    const [images, setImages] = useState({                              // 회사 이미지
         image1: null,
         image2: null,
         image3: null,
         image4: null,
         image5: null,
     });
-    const [editorWordCounter, setEditorWordCounter] = useState({
+    const [editorWordCounter, setEditorWordCounter] = useState({        // 토스트 에디터에 입력한 글자 수 저장용
         editor1: 0,
     });
+    const [qualification, setQualification] = useState('');             // 자격요건 입력
+    const [qualificationList, setQualificationList] = useState([]);     // 자격요건 리스트
+    const [benefit, setBenefit] = useState('');                         // 우대사항 입력
+    const [benefitList, setBenefitList] = useState([]);                 // 자격요건 리스트
     const [tabIndex, setTabIndex] = useState(0);
 
     const mapRef = useRef();
@@ -156,6 +162,108 @@ export default function PostEdit() {
         setFullAddress(fullAddress);
         setShowMap(true);
     }
+
+    // 자격요건 관련 함수 {
+    function handleUpdateQualification(e) {
+        setQualification(e.target.value);
+    }
+
+    function handleModifyUpdateQualification(e, index) {
+        const tempQualificationList = [...qualificationList];
+
+        tempQualificationList[index].qualification = e.target.value;
+
+        setQualificationList(tempQualificationList);
+    }
+
+    function handleAddQualification() {
+        if (qualification.length <= 0) {
+            toast.warn('아무것도 입력되지 않았어요.', {
+                position: "bottom-center",
+                autoClose: 3000,
+            });
+            return;
+        }
+
+        const tempQualificationList = [...qualificationList];
+
+        const qualificationObject = {
+            qualification,
+            isModify: false
+        }
+
+        tempQualificationList.push(qualificationObject);
+        setQualification('');
+        setQualificationList(tempQualificationList);
+    }
+
+    function handleModifyQualification(index) {
+        const tempQualificationList = [...qualificationList];
+
+        tempQualificationList[index].isModify = !tempQualificationList[index].isModify;
+
+        setQualificationList(tempQualificationList);
+    }
+
+    function handleRemoveQualification(index) {
+        const tempQualificationList = [...qualificationList];
+
+        tempQualificationList.splice(index, 1);
+
+        setQualificationList(tempQualificationList);
+    }
+    // }
+
+    // 우대사항 관련 함수 {
+    function handleUpdateBenefit(e) {
+        setBenefit(e.target.value);
+    }
+
+    function handleModifyUpdateBenefit(e, index) {
+        const tempBenefitList = [...benefitList];
+
+        tempBenefitList[index].benefit = e.target.value;
+
+        setBenefitList(tempBenefitList);
+    }
+
+    function handleAddBenefit() {
+        if (benefit.length <= 0) {
+            toast.warn('아무것도 입력되지 않았어요.', {
+                position: "bottom-center",
+                autoClose: 3000,
+            });
+            return;
+        }
+
+        const tempBenefitList = [...benefitList];
+
+        const benefitObject = {
+            benefit,
+            isModify: false
+        }
+
+        tempBenefitList.push(benefitObject);
+        setBenefit('');
+        setBenefitList(tempBenefitList);
+    }
+
+    function handleModifyBenefit(index) {
+        const tempBenefitList = [...benefitList];
+
+        tempBenefitList[index].isModify = !tempBenefitList[index].isModify;
+
+        setBenefitList(tempBenefitList);
+    }
+
+    function handleRemoveBenefit(index) {
+        const tempBenefitList = [...benefitList];
+
+        tempBenefitList.splice(index, 1);
+
+        setBenefitList(tempBenefitList);
+    }
+    // }
 
     function changeFile(event, index) {
         event.preventDefault();
@@ -308,8 +416,8 @@ export default function PostEdit() {
                 
                 <div className={styles.tab_area}>
                     <ul>
-                        <li className={tabIndex === 0 && styles.current} onClick={() => setTabIndex(0)}>가이드 양식</li>
-                        <li className={tabIndex === 1 && styles.current} onClick={() => setTabIndex(1)}>자유 양식</li>
+                        <li className={tabIndex === 0 ? styles.current : undefined} onClick={() => setTabIndex(0)}>가이드 양식</li>
+                        <li className={tabIndex === 1 ? styles.current : undefined} onClick={() => setTabIndex(1)}>자유 양식</li>
                     </ul>
                 </div>
 
@@ -357,16 +465,62 @@ export default function PostEdit() {
                             <div className={styles.title_area}>
                                 <p className={styles.title}>자격요건</p>
                                 <p className={styles.description}>
-                                    회사가 원하는 인재의 자격요건을 설명해주세요.
+                                    회사가 원하는 인재의 자격요건을 한 개씩 간결하게 설명해주세요.
                                 </p>
                             </div>
                             <div className={styles.editor}>
-                                <ToastEditor 
-                                    editorRef={editorRef}
-                                    height={300}
-                                    onChange={() => handleUpdateEditor(4)}
-                                    placeholder='어떤 자격 요건을 가진 인재를 원하시는지 설명해주세요.'
-                                />
+                                <div className={styles.controller}>
+                                    <input className={styles.textbox} 
+                                        value={qualification} 
+                                        onChange={handleUpdateQualification} 
+                                        onKeyPress={(e) => {
+                                            if (e.key === 'Enter') {
+                                                handleAddQualification();
+                                            }
+                                        }}
+                                    />
+                                    <button className={styles.button_add} onClick={handleAddQualification}>추가하기</button>
+                                </div>
+                                <div className={styles.add_list}>
+                                    <ul>
+                                        { qualificationList.map((qualification, index) => 
+                                            <li key={`qualification${index}`}>
+                                                <div className={styles.list_content}>
+                                                    { !qualification.isModify &&
+                                                        <>
+                                                            <span>{qualification.qualification}</span>
+                                                            <div className={styles.buttons_area}>
+                                                                <div className={`${styles.button} ${styles.edit}`} 
+                                                                    onClick={() => handleModifyQualification(index)}>
+                                                                    수정
+                                                                </div>
+                                                                <div className={`${styles.button} ${styles.remove}`} 
+                                                                    onClick={() => handleRemoveQualification(index)}>
+                                                                    삭제
+                                                                </div>
+                                                            </div>
+                                                        </>
+                                                    }
+                                                    { qualification.isModify && 
+                                                        <>
+                                                            <input value={qualification.qualification} 
+                                                                onChange={(e) => handleModifyUpdateQualification(e, index)}
+                                                                onKeyPress={(e) => {
+                                                                    if (e.key === 'Enter') {
+                                                                        handleModifyQualification(index);
+                                                                    }
+                                                                }} />
+                                                            <div className={`${styles.button} ${styles.confirm}`} 
+                                                                onClick={() => handleModifyQualification(index)}>
+                                                                확인
+                                                            </div>
+                                                        </>
+                                                    }
+                                                </div>
+                                            </li>
+                                        )}
+                                    </ul>
+                                </div>
                             </div>
                         </section>
 
@@ -375,16 +529,62 @@ export default function PostEdit() {
                                 <p className={styles.title}>우대사항</p>
                                 <p className={styles.description}>
                                     채용 시 우대사항이 있으실 경우 채용될 가능성이 높아진다는 점을 알려주세요.<br />
-                                    우대사항을 함께 알려주시면 원하는 인재를 채용할 확률이 높아집니다.
+                                    우대사항을 함께 알려주시면 원하는 인재를 채용할 확률이 높아집니다. 더 나은 채용을 위해 한 개씩 간결하게 설명해주세요.
                                 </p>
                             </div>
                             <div className={styles.editor}>
-                                <ToastEditor 
-                                    editorRef={editorRef}
-                                    height={300}
-                                    onChange={() => handleUpdateEditor(5)}
-                                    placeholder='자격요건에 이어 우대사항도 있다면 함께 설명해주세요.'
-                                />
+                                <div className={styles.controller}>
+                                    <input className={styles.textbox} 
+                                    value={benefit} 
+                                    onChange={handleUpdateBenefit}
+                                    onKeyPress={(e) => {
+                                        if (e.key === 'Enter') {
+                                            handleAddBenefit();
+                                        }
+                                    }}
+                                    />
+                                    <button className={styles.button_add} onClick={handleAddBenefit}>추가하기</button>
+                                </div>
+                                <div className={styles.add_list}>
+                                    <ul>
+                                        { benefitList.map((benefit, index) => 
+                                            <li key={`benefit${index}`}>
+                                                <div className={styles.list_content}>
+                                                    { !benefit.isModify &&
+                                                        <>
+                                                            <span>{benefit.benefit}</span>
+                                                            <div className={styles.buttons_area}>
+                                                                <div className={`${styles.button} ${styles.edit}`} 
+                                                                    onClick={() => handleModifyBenefit(index)}>
+                                                                    수정
+                                                                </div>
+                                                                <div className={`${styles.button} ${styles.remove}`} 
+                                                                    onClick={() => handleRemoveBenefit(index)}>
+                                                                    삭제
+                                                                </div>
+                                                            </div>
+                                                        </>
+                                                    }
+                                                    { benefit.isModify && 
+                                                        <>
+                                                            <input value={benefit.benefit} 
+                                                                onChange={(e) => handleModifyUpdateBenefit(e, index)}
+                                                                onKeyPress={(e) => {
+                                                                    if (e.key === 'Enter') {
+                                                                        handleModifyBenefit(index);
+                                                                    }
+                                                                }} />
+                                                            <div className={`${styles.button} ${styles.confirm}`} 
+                                                                onClick={() => handleModifyBenefit(index)}>
+                                                                확인
+                                                            </div>
+                                                        </>
+                                                    }
+                                                </div>
+                                            </li>
+                                        )}
+                                    </ul>
+                                </div>
                             </div>
                         </section>
 
@@ -464,11 +664,11 @@ export default function PostEdit() {
                         <ul>
                             <li>
                                 <Webp src={validateList.validPostTitle ? '/assets/images/post/check_active.png' : '/assets/images/post/check_inactive.png'} />
-                                <span style={{ color: validateList.validPostTitle && '#000' }}>채용공고 제목 작성</span>
+                                <span style={{ color: validateList.validPostTitle ? '#000' : undefined }}>채용공고 제목 작성</span>
                             </li>
                             <li>
                                 <Webp src={validateList.validPictures ? '/assets/images/post/check_active.png' : '/assets/images/post/check_inactive.png'} />
-                                <span style={{ color: validateList.validPictures && '#000' }}>사진 1장 이상 추가</span>
+                                <span style={{ color: validateList.validPictures ? '#000' : undefined }}>사진 1장 이상 추가</span>
                             </li>
 
                             {/* 가이드 양식을 선택했을 경우 */}
@@ -476,19 +676,19 @@ export default function PostEdit() {
                                 <>
                                     <li>
                                         <Webp src={validateList.validContents ? '/assets/images/post/check_active.png' : '/assets/images/post/check_inactive.png'} />
-                                        <span style={{ color: validateList.validContents && '#000' }}>회사소개 작성</span>
+                                        <span style={{ color: validateList.validContents ? '#000' : undefined }}>회사소개 작성</span>
                                     </li>
                                     <li>
                                         <Webp src={validateList.validContents ? '/assets/images/post/check_active.png' : '/assets/images/post/check_inactive.png'} />
-                                        <span style={{ color: validateList.validContents && '#000' }}>주요업무 작성</span>
+                                        <span style={{ color: validateList.validContents ? '#000' : undefined }}>주요업무 작성</span>
                                     </li>
                                     <li>
                                         <Webp src={validateList.validContents ? '/assets/images/post/check_active.png' : '/assets/images/post/check_inactive.png'} />
-                                        <span style={{ color: validateList.validContents && '#000' }}>자격요건 작성</span>
+                                        <span style={{ color: validateList.validContents ? '#000' : undefined }}>자격요건 작성</span>
                                     </li>
                                     <li>
                                         <Webp src={validateList.validContents ? '/assets/images/post/check_active.png' : '/assets/images/post/check_inactive.png'} />
-                                        <span style={{ color: validateList.validContents && '#000' }}>혜택 및 복지 작성</span>
+                                        <span style={{ color: validateList.validContents ? '#000' : undefined }}>혜택 및 복지 작성</span>
                                     </li>
                                 </>
                             }
@@ -498,14 +698,14 @@ export default function PostEdit() {
                                 <>
                                     <li>
                                         <Webp src={validateList.validContents ? '/assets/images/post/check_active.png' : '/assets/images/post/check_inactive.png'} />
-                                        <span style={{ color: validateList.validContents && '#000' }}>채용공고 세부내용 300자 이상 작성({ editorWordCounter.editor1 }자)</span>
+                                        <span style={{ color: validateList.validContents ? '#000' : undefined }}>채용공고 세부내용 300자 이상 작성({ editorWordCounter.editor1 }자)</span>
                                     </li>
                                 </>
                             }
 
                             <li>
                                 <Webp src={validateList.validAddress ? '/assets/images/post/check_active.png' : '/assets/images/post/check_inactive.png'} />
-                                <span style={{ color: validateList.validAddress && '#000' }}>근무지 설정</span>
+                                <span style={{ color: validateList.validAddress ? '#000' : undefined }}>근무지 설정</span>
                             </li>
                         </ul>
                     </div>
