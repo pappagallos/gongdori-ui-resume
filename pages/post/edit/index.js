@@ -182,6 +182,9 @@ export default function PostEdit() {
      * 함수
      *************************************************************/
     function handleChangeTab(index) {
+        // 동일한 탭을 다시 눌렀을 경우
+        if (index === tabIndex) return;
+
         // 가이드 양식에서 자유 양식으로 변경하는 경우
         if (index === 1) {
             setTempSave({
