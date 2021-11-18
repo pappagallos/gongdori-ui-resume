@@ -3,6 +3,9 @@
         "name": "보험가입",
         "list": [
             {
+                "list_name": "4대보험"
+            },
+            {
                 "list_name": "국민연금"
             },
             {
@@ -101,10 +104,10 @@
         "name": "동호회",
         "list": [
             {
-                "list_name": "사내동호회 운영"
+                "list_name": "사내동호회운영"
             },
             {
-                "list_name": "사내동호회 지원"
+                "list_name": "사내동호회지원"
             }
         ]
     },
@@ -138,19 +141,19 @@
                 "list_name": "귀향여비"
             },
             {
-                "list_name": "귀성차량 운행"
+                "list_name": "귀성차량운행"
             },
             {
-                "list_name": "창립기념일 휴무"
+                "list_name": "창립기념일휴무"
             },
             {
-                "list_name": "창립기념일 선물"
+                "list_name": "창립기념일선물"
             },
             {
                 "list_name": "생일선물/파티"
             },
             {
-                "list_name": "결혼기념일 선물"
+                "list_name": "결혼기념일선물"
             }
         ]
     },
@@ -161,7 +164,7 @@
                 "list_name": "건강검진"
             },
             {
-                "list_name": "진료비 지원"
+                "list_name": "진료비지원"
             },
             {
                 "list_name": "금연수당"
@@ -190,7 +193,7 @@
                 "list_name": "어린이집"
             },
             {
-                "list_name": "산전 후 휴가"
+                "list_name": "산전후휴가"
             },
             {
                 "list_name": "육아휴직"
@@ -257,34 +260,34 @@
         "name": "장애인 편의시설",
         "list": [
             {
-                "list_name": "건물 내 경사로"
+                "list_name": "건물내경사로"
             },
             {
-                "list_name": "휄체어용 난간"
+                "list_name": "휄체어용난간"
             },
             {
                 "list_name": "유도점자블록"
             },
             {
-                "list_name": "장애인 전용 책상"
+                "list_name": "장애인전용책상"
             },
             {
-                "list_name": "장애인 화장실"
+                "list_name": "장애인화장실"
             },
             {
-                "list_name": "장애인 세면대"
+                "list_name": "장애인세면대"
             },
             {
-                "list_name": "장애인 통근버스"
+                "list_name": "장애인통근버스"
             },
             {
-                "list_name": "장애인 전용주차장"
+                "list_name": "장애인전용주차장"
             },
             {
-                "list_name": "장애인 엘레베이터"
+                "list_name": "장애인엘레베이터"
             },
             {
-                "list_name": "장애인 기숙사"
+                "list_name": "장애인기숙사"
             },
             {
                 "list_name": "비상경보장치"
@@ -307,7 +310,7 @@
                 "list_name": "의복비"
             },
             {
-                "list_name": "유니폼 지급"
+                "list_name": "유니폼지급"
             },
             {
                 "list_name": "노타이"
@@ -339,7 +342,7 @@
                 "list_name": "전자레인지"
             },
             {
-                "list_name": "식비 지원"
+                "list_name": "식비지원"
             },
             {
                 "list_name": "식권제공"
@@ -356,16 +359,28 @@
         "name": "주거",
         "list": [
             {
-                "list_name": "기숙사 운영"
+                "list_name": "기숙사운영"
             },
             {
                 "list_name": "사택제공"
             },
             {
-                "list_name": "사원아파트 임대"
+                "list_name": "사원아파트임대"
             },
             {
-                "list_name": "주택자금 융자"
+                "list_name": "사내대출"
+            },
+            {
+                "list_name": "대출이자지원"
+            },
+            {
+                "list_name": "월세지원"
+            },
+            {
+                "list_name": "전세보증금지원"
+            },
+            {
+                "list_name": "월세보증금지원"
             }
         ]
     },
@@ -373,22 +388,45 @@
         "name": "교통",
         "list": [
             {
-                "list_name": "차량유류비 지원"
+                "list_name": "차량유류비지원"
             },
             {
-                "list_name": "통근버스 운행"
+                "list_name": "통근버스운행"
             },
             {
-                "list_name": "야간교통비 지원"
+                "list_name": "야간교통비지원"
+            },
+            {
+                "list_name": "교통비지원"
             },
             {
                 "list_name": "주차장"
             },
             {
-                "list_name": "주차비 지원"
+                "list_name": "주차비지원"
             },
             {
-                "list_name": "회사차량 지원"
+                "list_name": "회사차량지원"
+            },
+            {
+                "list_name": "차량구입지원"
+            }
+        ]
+    },
+    "communication": {
+        "name": "통신",
+        "list": [
+            {
+                "list_name": "SK통신비지원"
+            },
+            {
+                "list_name": "LGU+통신비지원"
+            },
+            {
+                "list_name": "KT통신비지원"
+            },
+            {
+                "list_name": "인터넷요금지원"
             }
         ]
     },
@@ -419,6 +457,27 @@
                 "list_name": "개인노트북"
             },
             {
+                "list_name": "맥북프로"
+            },
+            {
+                "list_name": "맥북에어"
+            },
+            {
+                "list_name": "삼성노트북"
+            },
+            {
+                "list_name": "LG노트북"
+            },
+            {
+                "list_name": "게이밍노트북"
+            },
+            {
+                "list_name": "에어팟"
+            },
+            {
+                "list_name": "갤럭시버즈"
+            },
+            {
                 "list_name": "개인PC"
             },
             {
@@ -434,10 +493,16 @@
                 "list_name": "복지카드"
             },
             {
-                "list_name": "자회사 제품할인"
+                "list_name": "자회사제품할인"
             },
             {
-                "list_name": "콘도/리조트 이용권"
+                "list_name": "콘도/리조트이용권"
+            },
+            {
+                "list_name": "콘도/리조트할인권"
+            },
+            {
+                "list_name": "법인카드"
             }
         ]
     },
@@ -454,28 +519,28 @@
                 "list_name": "리더쉽강화교육"
             },
             {
-                "list_name": "해외연수 지원"
+                "list_name": "해외연수지원"
             },
             {
-                "list_name": "도서구입비 지원"
+                "list_name": "도서구입비지원"
             },
             {
-                "list_name": "MBA과정 지원"
+                "list_name": "MBA과정지원"
             },
             {
                 "list_name": "멘토링제도"
             },
             {
-                "list_name": "외국어강의 지원"
+                "list_name": "외국어강의지원"
             },
             {
-                "list_name": "자격증취득 지원"
+                "list_name": "자격증취득지원"
             },
             {
-                "list_name": "교육비 지원"
+                "list_name": "교육비지원"
             },
             {
-                "list_name": "자기계발비 지원"
+                "list_name": "자기계발비지원"
             }
         ]
     },
@@ -501,16 +566,16 @@
                 "list_name": "위로휴가"
             },
             {
-                "list_name": "리프레쉬 휴가"
+                "list_name": "리프레쉬휴가"
             },
             {
-                "list_name": "창립일 휴무"
+                "list_name": "창립일휴무"
             },
             {
-                "list_name": "노동절 휴무"
+                "list_name": "노동절휴무"
             },
             {
-                "list_name": "휴가비 지원"
+                "list_name": "휴가비지원"
             },
             {
                 "list_name": "포상휴가"
@@ -549,6 +614,29 @@
             },
             {
                 "list_name": "야유회"
+            }
+        ]
+    },
+    "college": {
+        "name": "등록금/학자금",
+        "list": [
+            {
+                "list_name": "자녀대학교등록금지원"
+            },
+            {
+                "list_name": "자녀대학교학자금이자지원"
+            },
+            {
+                "list_name": "자녀대학교학자금지원"
+            },
+            {
+                "list_name": "사원대학원등록금지원"
+            },
+            {
+                "list_name": "사원대학원학자금이자지원"
+            },
+            {
+                "list_name": "사원대학원학자금지원"
             }
         ]
     }

@@ -428,6 +428,33 @@ export default function PostEdit() {
 
         setWalfare(keyword);
     }
+
+    function handleAddWalfare(keyword) {
+        let tempWalfare = keyword ? keyword : walfare;
+
+        const walfareObject = {
+            walfare: undefined,
+            isModify: false
+        }
+
+        if (!keyword) {
+            if (walfare.length <= 0) {
+                toast.warn('아무것도 입력되지 않았어요.', {
+                    position: "bottom-center",
+                    autoClose: 3000,
+                });
+                return;
+            }
+        }
+
+        const tempWalfareList = [...walfareList];
+
+        walfareObject.walfare = tempWalfare;
+
+        tempWalfareList.push(walfareObject);
+        setWalfare('');
+        setWalfareList(tempWalfareList);
+    }
     // }
 
     function changeFile(event, index) {
@@ -768,42 +795,40 @@ export default function PostEdit() {
                                         onChange={handleUpdateWalfare}
                                         onKeyPress={(e) => {
                                             if (e.key === 'Enter') {
-                                                // handleAddWalfare();
+                                                handleAddWalfare();
                                             }
                                         }}
                                     />
-                                    <button className={styles.button_add} /* onClick={handleAddWalfare} */>추가하기</button>
+                                    <button className={styles.button_add} onClick={handleAddWalfare}>추가하기</button>
                                 </div>
                                 
-                                { (walfare.length > 0 && walfareAutoComplete.length > 0) && 
-                                    <div className={styles.auto_complete_area}>
-                                        <p className={styles.auto_complete_notice}>
-                                            <Webp src='/assets/images/post/information.png' />
-                                            자동완성기에 나열된 복지를 클릭하시거나 입력한 복지가 없으시면 [Enter] 혹은 [추가하기]를 눌러주세요.
-                                        </p>
+                                <div className={styles.auto_complete_area} style={{ display: (walfare.length >= 2 && walfareAutoComplete.length > 0) ? 'block' : 'none' }}>
+                                    <p className={styles.auto_complete_notice}>
+                                        <Webp src='/assets/images/post/information.png' />
+                                        자동완성기에 나열된 복지를 클릭하시거나 입력한 복지가 없으시면 [Enter] 혹은 [추가하기]를 눌러주세요.
+                                    </p>
 
-                                        {
-                                            walfareAutoComplete.map((complete) => {
-                                                const subList = complete.searchList.map((walfareName) => 
-                                                    <li key={utilCommon.getRandomKey()}>
-                                                        { walfareName.list_name }
-                                                    </li>
-                                                )
+                                    {
+                                        walfareAutoComplete.map((complete) => {
+                                            const subList = complete.searchList.map((walfareName) => 
+                                                <li key={utilCommon.getRandomKey()} onClick={() => handleAddWalfare(walfareName.list_name)}>
+                                                    { walfareName.list_name }
+                                                </li>
+                                            )
 
-                                                return  (
-                                                    <div key={complete.key} className={styles.auto_complete_item}>
-                                                        <p className={styles.walfare_category}>{complete.name}</p>
-                                                        <div className={styles.walfare_list_area}>
-                                                            <ul>
-                                                                { subList }
-                                                            </ul>
-                                                        </div>
+                                            return  (
+                                                <div key={complete.key} className={styles.auto_complete_item}>
+                                                    <p className={styles.walfare_category}>{complete.name}</p>
+                                                    <div className={styles.walfare_list_area}>
+                                                        <ul>
+                                                            { subList }
+                                                        </ul>
                                                     </div>
-                                                );
-                                            })
-                                        }
-                                    </div>
-                                }
+                                                </div>
+                                            );
+                                        })
+                                    }
+                                </div>
 
                                 <div className={styles.add_list}>
                                     <ul>
@@ -831,7 +856,7 @@ export default function PostEdit() {
                                                                 onChange={(e) => handleModifyUpdateWalfare(e, index)}
                                                                 onKeyPress={(e) => {
                                                                     if (e.key === 'Enter') {
-                                                                        // handleModifyWalfare(index);
+                                                                        handleModifyWalfare(index);
                                                                     }
                                                                 }} />
                                                             <div className={`${styles.button} ${styles.confirm}`} 
