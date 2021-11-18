@@ -8,7 +8,6 @@ const ToastEditor = dynamic(() => import('../../../components/editor/ToastEditor
 
 import styles from '../../../styles/post/PostEdit.module.scss';
 import Webp from '../../../components/common/Webp';
-import utilCommon from '../../../utils/common';
 
 export default function PostEdit() {
     const [postTitle, setPostTitle] = useState('');                     // 채용공고 제목 저장용
@@ -19,28 +18,45 @@ export default function PostEdit() {
         validPictures: false,
         validContents: false,
         validAddress: false,
+        validAboutCompany: false,
+        validMainJob: false,
+        validQualification: false,
+        validWalfare: false,
     });
     const [images, setImages] = useState({                              // 회사 이미지
-        image1: null,
-        image2: null,
-        image3: null,
-        image4: null,
-        image5: null,
+        image1: null,   // 사진1
+        image2: null,   // 사진2
+        image3: null,   // 사진3
+        image4: null,   // 사진4
+        image5: null,   // 사진5
     });
     const [editorWordCounter, setEditorWordCounter] = useState({        // 토스트 에디터에 입력한 글자 수 저장용
-        editor1: 0,
+        editor1: 0,     // 자유양식
+        editor2: 0,     // 가이드양식 - 회사소개
+        editor3: 0,     // 가이드양식 - 주요업무
     });
     const [qualification, setQualification] = useState('');             // 자격요건 입력
     const [qualificationList, setQualificationList] = useState([]);     // 자격요건 리스트
     const [benefit, setBenefit] = useState('');                         // 우대사항 입력
     const [benefitList, setBenefitList] = useState([]);                 // 자격요건 리스트
     const [tabIndex, setTabIndex] = useState(0);
+    const [tempSave, setTempSave] = useState({
+        editor1: '',
+        editor2: '',
+        editor3: ''
+    });
 
     const mapRef = useRef();
-    const editorRef = useRef();
+    const editorRef1 = useRef();
+    const editorRef2 = useRef();
+    const editorRef3 = useRef();
+
+    /*************************************************************
+     * 관점
+     *************************************************************/
 
     useEffect(() => {
-        if (editorWordCounter.editor1 > 300) {
+        if (editorWordCounter.editor1 >= 300) {
             setValidateList({
                 ...validateList,
                 validContents: true
@@ -49,6 +65,30 @@ export default function PostEdit() {
             setValidateList({
                 ...validateList,
                 validContents: false
+            });
+        }
+
+        if (editorWordCounter.editor2 >= 200) {
+            setValidateList({
+                ...validateList,
+                validAboutCompany: true
+            });
+        } else {
+            setValidateList({
+                ...validateList,
+                validAboutCompany: false
+            });
+        }
+
+        if (editorWordCounter.editor3 >= 200) {
+            setValidateList({
+                ...validateList,
+                validMainJob: true
+            });
+        } else {
+            setValidateList({
+                ...validateList,
+                validMainJob: false
             });
         }
     }, [editorWordCounter]);
@@ -124,19 +164,97 @@ export default function PostEdit() {
         }
     }, [fullAddress, showMap]);
 
+    useEffect(() => {
+        if (qualificationList.length > 0) {
+            setValidateList({
+                ...validateList,
+                validQualification: true
+            });
+        } else {
+            setValidateList({
+                ...validateList,
+                validQualification: false
+            });
+        }
+    }, [qualificationList]);
+
+    /*************************************************************
+     * 함수
+     *************************************************************/
+    function handleChangeTab(index) {
+        // 가이드 양식에서 자유 양식으로 변경하는 경우
+        if (index === 1) {
+            setTempSave({
+                ...tempSave,
+                editor2: editorRef2.current.getInstance().getHTML(),
+                editor3: editorRef3.current.getInstance().getHTML(),
+            });
+
+            setTabIndex(index);
+
+            const interval = setInterval(() => {
+                if (editorRef1.current && tempSave.editor1.length > 0) {
+                    editorRef1.current.getInstance().setHTML(tempSave.editor1);
+                    clearInterval(interval);
+                }
+            }, 1);
+            
+
+        // 자유 양식에서 가이드 양식으로 변경하는 경우
+        } else if (index === 0) {
+            setTempSave({
+                ...tempSave,
+                editor1: editorRef1.current.getInstance().getHTML(),
+            });
+
+            setTabIndex(index);
+
+            const interval = setInterval(() => {
+                if (editorRef2.current && editorRef3.current && (tempSave.editor2.length > 0 || tempSave.editor3.length > 0)) {
+                    editorRef2.current.getInstance().setHTML(tempSave.editor2);
+                    editorRef3.current.getInstance().setHTML(tempSave.editor3);
+                    clearInterval(interval);
+                }
+            }, 1);
+        }
+    } 
+
     function handleUpdateEditor(index) {
-        if (!editorRef.current) {
-            return;
+        if (index === 1) {
+            if (!editorRef1.current) {
+                return;
+            }
+        } else if (index === 2 || index === 3) {
+            if (!editorRef2.current || !editorRef3.current) {
+                return;
+            }
         }
 
         const extractTextPattern = /(<([^>]+)>)/gi;
-        const html = editorRef.current.getInstance().getHTML();
-        const plainText = html.replace(extractTextPattern, '');
+        let html = { editor1: '', editor2: '', editor3: '' };
 
-        setEditorWordCounter({
-            ...editorWordCounter,
-            [`editor${index}`]: plainText.length
-        });
+        if (index === 1) {
+            html.editor1 = editorRef1.current.getInstance().getHTML();
+
+            const plainText1 = html.editor1.replace(extractTextPattern, '');
+
+            setEditorWordCounter({
+                ...editorWordCounter,
+                editor1: plainText1.length
+            });
+        } else if (index === 2 || index === 3) {
+            html.editor2 = editorRef2.current.getInstance().getHTML();
+            html.editor3 = editorRef3.current.getInstance().getHTML();
+
+            const plainText2 = html.editor2.replace(extractTextPattern, '');
+            const plainText3 = html.editor3.replace(extractTextPattern, '');
+
+            setEditorWordCounter({
+                ...editorWordCounter,
+                editor2: plainText2.length,
+                editor3: plainText3.length
+            });
+        }
     }
 
     function handleUpdateTitle(e) {
@@ -144,8 +262,6 @@ export default function PostEdit() {
     }
 
     function handleComplete(data) {
-        console.log(data);
-
         let fullAddress = data.address;
         let extraAddress = ''; 
         
@@ -288,7 +404,7 @@ export default function PostEdit() {
 
     function sendPostContents() {
         const extractTextPattern = /(<([^>]+)>)/gi;
-        const html = editorRef.current.getInstance().getHTML();
+        const html = editorRef1.current.getInstance().getHTML();
         const plainText = html.replace(extractTextPattern, '');
 
         console.log(plainText);
@@ -416,8 +532,8 @@ export default function PostEdit() {
                 
                 <div className={styles.tab_area}>
                     <ul>
-                        <li className={tabIndex === 0 ? styles.current : undefined} onClick={() => setTabIndex(0)}>가이드 양식</li>
-                        <li className={tabIndex === 1 ? styles.current : undefined} onClick={() => setTabIndex(1)}>자유 양식</li>
+                        <li className={tabIndex === 0 ? styles.current : undefined} onClick={() => handleChangeTab(0)}>가이드 양식</li>
+                        <li className={tabIndex === 1 ? styles.current : undefined} onClick={() => handleChangeTab(1)}>자유 양식</li>
                     </ul>
                 </div>
 
@@ -435,10 +551,10 @@ export default function PostEdit() {
                             </div>
                             <div className={styles.editor}>
                                 <ToastEditor 
-                                    editorRef={editorRef}
+                                    editorRef={editorRef2}
                                     height={300}
                                     onChange={() => handleUpdateEditor(2)}
-                                    placeholder='회사에 대해서 소개해주세요.'
+                                    // placeholder='회사에 대해서 소개해주세요.'
                                 />
                             </div>
                         </section>
@@ -453,10 +569,10 @@ export default function PostEdit() {
                             </div>
                             <div className={styles.editor}>
                                 <ToastEditor 
-                                    editorRef={editorRef}
+                                    editorRef={editorRef3}
                                     height={300}
                                     onChange={() => handleUpdateEditor(3)}
-                                    placeholder='어떤 업무를 수행하게 될지 자세하게 설명해주세요.'
+                                    // placeholder='어떤 업무를 수행하게 될지 자세하게 설명해주세요.'
                                 />
                             </div>
                         </section>
@@ -596,12 +712,7 @@ export default function PostEdit() {
                                 </p>
                             </div>
                             <div className={styles.editor}>
-                                <ToastEditor 
-                                    editorRef={editorRef}
-                                    height={300}
-                                    onChange={() => handleUpdateEditor(6)}
-                                    placeholder='회사의 혜택과 복지에 대해 자세하게 설명해주세요.'
-                                />
+                                
                             </div>
                         </section>
                     </>
@@ -620,9 +731,9 @@ export default function PostEdit() {
                         <div className={styles.editor}>
                             <ToastEditor
                                 height={600}
-                                editorRef={editorRef}
+                                editorRef={editorRef1}
                                 onChange={() => handleUpdateEditor(1)}
-                                placeholder='채용공고를 자세하고 자유로운 양식으로 작성해주세요. 작성해주신 채용공고는 1시간 이내에 이공계사람들에서 심사 후 승인되면 보여집니다.'
+                                // placeholder='채용공고를 자세하고 자유로운 양식으로 작성해주세요. 작성해주신 채용공고는 1시간 이내에 이공계사람들에서 심사 후 승인되면 보여집니다.'
                             />
                         </div>
                     </section>
@@ -675,20 +786,20 @@ export default function PostEdit() {
                             { tabIndex === 0 &&
                                 <>
                                     <li>
-                                        <Webp src={validateList.validContents ? '/assets/images/post/check_active.png' : '/assets/images/post/check_inactive.png'} />
-                                        <span style={{ color: validateList.validContents ? '#000' : undefined }}>회사소개 작성</span>
+                                        <Webp src={validateList.validAboutCompany ? '/assets/images/post/check_active.png' : '/assets/images/post/check_inactive.png'} />
+                                        <span style={{ color: validateList.validAboutCompany ? '#000' : undefined }}>회사소개 200자 이상 작성({ editorWordCounter.editor2 }자)</span>
                                     </li>
                                     <li>
-                                        <Webp src={validateList.validContents ? '/assets/images/post/check_active.png' : '/assets/images/post/check_inactive.png'} />
-                                        <span style={{ color: validateList.validContents ? '#000' : undefined }}>주요업무 작성</span>
+                                        <Webp src={validateList.validMainJob ? '/assets/images/post/check_active.png' : '/assets/images/post/check_inactive.png'} />
+                                        <span style={{ color: validateList.validMainJob ? '#000' : undefined }}>주요업무 200자 이상 작성({ editorWordCounter.editor3 }자)</span>
                                     </li>
                                     <li>
-                                        <Webp src={validateList.validContents ? '/assets/images/post/check_active.png' : '/assets/images/post/check_inactive.png'} />
-                                        <span style={{ color: validateList.validContents ? '#000' : undefined }}>자격요건 작성</span>
+                                        <Webp src={validateList.validQualification ? '/assets/images/post/check_active.png' : '/assets/images/post/check_inactive.png'} />
+                                        <span style={{ color: validateList.validQualification ? '#000' : undefined }}>자격요건 1개 이상 등록</span>
                                     </li>
                                     <li>
-                                        <Webp src={validateList.validContents ? '/assets/images/post/check_active.png' : '/assets/images/post/check_inactive.png'} />
-                                        <span style={{ color: validateList.validContents ? '#000' : undefined }}>혜택 및 복지 작성</span>
+                                        <Webp src={validateList.validWalfare ? '/assets/images/post/check_active.png' : '/assets/images/post/check_inactive.png'} />
+                                        <span style={{ color: validateList.validWalfare ? '#000' : undefined }}>혜택 및 복지 작성</span>
                                     </li>
                                 </>
                             }
