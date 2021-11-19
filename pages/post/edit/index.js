@@ -27,16 +27,31 @@ export default function PostEdit() {
         validWalfare: false,
     });
     const [images, setImages] = useState({                              // 회사 이미지
-        image1: null,   // 사진1
-        image2: null,   // 사진2
-        image3: null,   // 사진3
-        image4: null,   // 사진4
-        image5: null,   // 사진5
+        image1: { 
+            base64: undefined,
+            formData: undefined,
+        },   // 사진1
+        image2: { 
+            base64: undefined,
+            formData: undefined,
+        },   // 사진1
+        image3: { 
+            base64: undefined,
+            formData: undefined,
+        },   // 사진1
+        image4: { 
+            base64: undefined,
+            formData: undefined,
+        },   // 사진1
+        image5: { 
+            base64: undefined,
+            formData: undefined,
+        },   // 사진1
     });
     const [editorWordCounter, setEditorWordCounter] = useState({        // 토스트 에디터에 입력한 글자 수 저장용
-        editor1: 0,     // 자유양식
-        editor2: 0,     // 가이드양식 - 회사소개
-        editor3: 0,     // 가이드양식 - 주요업무
+        editor1: 0,         // 자유양식
+        editor2: 0,         // 가이드양식 - 회사소개
+        editor3: 0,         // 가이드양식 - 주요업무
     });
     const [qualification, setQualification] = useState('');             // 자격요건 입력
     const [qualificationList, setQualificationList] = useState([]);     // 자격요건 리스트
@@ -147,7 +162,7 @@ export default function PostEdit() {
     useEffect(() => {
         const { image1, image2, image3, image4, image5 } = images;
 
-        if (image1 || image2 || image3 || image4 || image5) {
+        if (image1.formData || image2.formData || image3.formData || image4.formData || image5.formData) {
             setValidateList({
                 ...validateList,
                 validPictures: true
@@ -187,6 +202,20 @@ export default function PostEdit() {
             });
         }
     }, [qualificationList]);
+
+    useEffect(() => {
+        if (walfareList.length > 0) {
+            setValidateList({
+                ...validateList,
+                validWalfare: true
+            });
+        } else {
+            setValidateList({
+                ...validateList,
+                validWalfare: false
+            });
+        }
+    }, [walfareList]);
 
     /*************************************************************
      * 함수
@@ -514,25 +543,79 @@ export default function PostEdit() {
 
         reader.readAsDataURL(file);
         reader.onload = () => {
+            // 서버로 데이터를 보내려면 formData 객체 안에 감싸서 보내야 함
+            formData.append('file', file);
+
+            // 브라우저에 업로드한 이미지를 렌더링하고 formData를 적재하는 작업 진행
             setImages({
                 ...images,
-                [`image${index}`]: reader.result
+                [`image${index}`]: {
+                    formData,
+                    base64: reader.result
+                }
             });
         };
         reader.onerror = () => {
             console.log('error');
         }
-
-        formData.append('file', file);
     }
 
     function sendPostContents() {
-        const extractTextPattern = /(<([^>]+)>)/gi;
-        const html = editorRef1.current.getInstance().getHTML();
-        const plainText = html.replace(extractTextPattern, '');
+        const { validAboutCompany, validAddress, validWalfare, validContents, validMainJob, validPictures, validPostTitle, validQualification } = validateList;
+        if (tabIndex === 0) {
+            if (!validPostTitle || !validPictures || !validAboutCompany || !validMainJob || !validQualification || !validWalfare || !validAddress) {
+                toast.warn('통과되지 않은 항목이 있습니다.', {
+                    position: "top-right"
+                })
+                return;
+            }
+        } else if (tabIndex === 1) {
+            if (!validPostTitle || !validPictures || !validContents || !validQualification || !validWalfare || !validAddress) {
+                toast.warn('통과되지 않은 항목이 있습니다.', {
+                    position: "top-right"
+                })
+                return;
+            }
+        }
 
-        console.log(plainText);
-        console.log(html);
+        const extractTextPattern = /(<([^>]+)>)/gi;
+
+        const sendData = {
+            postTitle,
+            images,
+            tab: tabIndex,
+            editor1: {
+                html: '',
+                plainText: '',
+            },
+            editor2: {
+                html: '',
+                plainText: '',
+            },
+            editor3: {
+                html: '',
+                plainText: '',
+            },
+            qualificationList,
+            benefitList,
+            walfareList,
+            fullAddress
+        }
+
+        // 가이드 양식을 선택했을 경우 전달되는 데이터
+        if (tabIndex === 0) {
+            sendData.editor2.html = editorRef2.current.getInstance().getHTML();
+            sendData.editor2.plainText = sendData.editor2.html.replace(extractTextPattern, '');
+            sendData.editor3.html = editorRef3.current.getInstance().getHTML();
+            sendData.editor3.plainText = sendData.editor3.html.replace(extractTextPattern, '');
+
+        // 자유 양식을 선택했을 경우 전달되는 데이터
+        } else if (tabIndex === 1) {
+            sendData.editor1.html = editorRef1.current.getInstance().getHTML();
+            sendData.editor1.plainText = sendData.editor1.html.replace(extractTextPattern, '');
+        }
+
+        console.log(sendData);
     }
 
     return (
@@ -571,9 +654,9 @@ export default function PostEdit() {
 
                                 <li>
                                     {
-                                        images.image1 ?
+                                        images.image1.base64 ?
                                         <>
-                                            <img src={images.image1} className={styles.uploaded_image} />
+                                            <img src={images.image1.base64} className={styles.uploaded_image} />
                                         </>
                                         :
                                         <>
@@ -588,9 +671,9 @@ export default function PostEdit() {
 
                                 <li>
                                     {
-                                        images.image2 ?
+                                        images.image2.base64 ?
                                         <>
-                                            <img src={images.image2} className={styles.uploaded_image} />
+                                            <img src={images.image2.base64} className={styles.uploaded_image} />
                                         </>
                                         :
                                         <>
@@ -605,9 +688,9 @@ export default function PostEdit() {
 
                                 <li>
                                     {
-                                        images.image3 ?
+                                        images.image3.base64 ?
                                         <>
-                                            <img src={images.image3} className={styles.uploaded_image} />
+                                            <img src={images.image3.base64} className={styles.uploaded_image} />
                                         </>
                                         :
                                         <>
@@ -622,9 +705,9 @@ export default function PostEdit() {
 
                                 <li>
                                     {
-                                        images.image4 ?
+                                        images.image4.base64 ?
                                         <>
-                                            <img src={images.image4} className={styles.uploaded_image} />
+                                            <img src={images.image4.base64} className={styles.uploaded_image} />
                                         </>
                                         :
                                         <>
@@ -639,9 +722,9 @@ export default function PostEdit() {
 
                                 <li>
                                     {
-                                        images.image5 ?
+                                        images.image5.base64 ?
                                         <>
-                                            <img src={images.image5} className={styles.uploaded_image} />
+                                            <img src={images.image5.base64} className={styles.uploaded_image} />
                                         </>
                                         :
                                         <>
@@ -1010,7 +1093,7 @@ export default function PostEdit() {
                                     </li>
                                     <li>
                                         <Webp src={validateList.validWalfare ? '/assets/images/post/check_active.png' : '/assets/images/post/check_inactive.png'} />
-                                        <span style={{ color: validateList.validWalfare ? '#000' : undefined }}>혜택 및 복지 작성</span>
+                                        <span style={{ color: validateList.validWalfare ? '#000' : undefined }}>혜택 및 복지 1개 이상 등록</span>
                                     </li>
                                 </>
                             }
