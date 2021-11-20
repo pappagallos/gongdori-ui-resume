@@ -1,4 +1,105 @@
 .container {
+    display: flex;
+    justify-content: space-between;
+
     width: 100%;
     max-width: 1155px;
+    padding: 20px 0;
+    margin: 0 auto;
+
+    .edit_area {
+        width: 825px;
+        margin-right: 20px;
+    }
+
+    .submit_area {
+        width: calc(1155px - 825px - 20px);
+        height: inherit;
+
+        .submit_controller_area {
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            margin-bottom: 15px;
+
+            ul {
+                li {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    position: relative;
+
+                    border: 1px solid #eee;
+                    border-radius: 5px;
+                    margin-bottom: 10px;
+                    padding: 0 10px;
+                    color: #757575;
+                    height: 41px;
+                    cursor: pointer;
+
+                    &.selected {
+                        border: 1px solid #585858;
+                    }
+
+                    .percent_score {
+                        font-weight: 700;
+                    }
+
+                    .chart {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 50%;
+                        height: 39px;
+                        border-radius: 5px;
+                        background: #f3f3f3;
+                        z-index: -1;
+                    }
+
+                    input {
+                        width: auto;
+                        margin-right: 8px;
+                    }
+                }
+            }
+
+            button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                width: 100%;
+                height: 45px;
+                border-radius: 5px;
+                margin-bottom: 7px;
+                font-weight: 500;
+            }
+
+            .title {
+                font-size: 1.3rem;
+                font-weight: 700;
+                margin: 0 0 3px 0;
+                padding: 0;
+            }
+
+            .description {
+                font-size: .9rem;
+                font-weight: 500;
+                margin: 0 0 10px 0;
+                padding: 0;
+                color: #878787;
+            }
+
+            .submit_controller {
+                width: 100%;
+                height: auto;
+
+                .submit {
+                    background: #000;
+                    border: 1px solid #000;
+                    color: #fff;
+                }
+            }
+        }
+    }
 }

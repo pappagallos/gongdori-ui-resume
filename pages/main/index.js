@@ -58,12 +58,12 @@ export default function Main() {
   function fetchCategoryList() {
     setCategoryList([
       {
-        categoryName: '건축/설계',
+        categoryName: '건축/인테리어/설계',
         imageUrl: '/assets/images/main/category/building.jpg',
         link: ''
       },
       {
-        categoryName: '의료/제약/바이오',
+        categoryName: '의료/제약/생명과학',
         imageUrl: '/assets/images/main/category/bio.jpg',
         link: ''
       },
@@ -73,22 +73,7 @@ export default function Main() {
         link: ''
       },
       {
-        categoryName: '로봇/메카트로닉스/기계',
-        imageUrl: '/assets/images/main/category/robot.jpg',
-        link: ''
-      },
-      {
-        categoryName: '항공/우주/철도/선박/자동차',
-        imageUrl: '/assets/images/main/category/rocket.jpg',
-        link: ''
-      },
-      {
-        categoryName: '식/음료/영양',
-        imageUrl: '/assets/images/main/category/food.jpg',
-        link: ''
-      },
-      {
-        categoryName: '교육/대학원/실험실',
+        categoryName: '교육/대학원/연구실',
         imageUrl: '/assets/images/main/category/college.jpg',
         link: ''
       }

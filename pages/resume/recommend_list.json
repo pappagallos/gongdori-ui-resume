@@ -1,0 +1,74 @@
+[
+    {
+        "category_item": {
+            "category_name": "건축/인테리어/설계",
+            "score": {
+                "education": "30%",
+                "score": "40%",
+                "career": "70%",
+                "me": "10%",
+                "portfolio": "90%",
+                "certification": "70%",
+                "paper": "10%",
+                "academy": "0%",
+                "language": "20%",
+                "awards": "50%",
+                "external_links": "0%"
+            }
+        }
+    },
+    {
+        "category_item": {
+            "category_name": "의료/제약/바이오",
+            "score": {
+                "education": "80%",
+                "score": "70%",
+                "career": "70%",
+                "me": "50%",
+                "portfolio": "0%",
+                "certification": "0%",
+                "paper": "100%",
+                "academy": "100%",
+                "language": "80%",
+                "awards": "40%",
+                "external_links": "0%"
+            }
+        }
+    },
+    {
+        "category_item": {
+            "category_name": "인공지능/소프트웨어/개발",
+            "score": {
+                "education": "20%",
+                "score": "20%",
+                "career": "40%",
+                "me": "20%",
+                "portfolio": "90%",
+                "certification": "70%",
+                "paper": "10%",
+                "academy": "0%",
+                "language": "30%",
+                "awards": "50%",
+                "external_links": "90%"
+            }
+        }
+    },
+    {
+        "category_item": {
+            "category_name": "교육/대학원/연구실",
+            "score": {
+                "education": "60%",
+                "score": "70%",
+                "career": "80%",
+                "me": "90%",
+                "portfolio": "90%",
+                "certification": "70%",
+                "paper": "10%",
+                "academy": "0%",
+                "language": "20%",
+                "awards": "50%",
+                "external_links": "90%"
+            }
+        }
+    }
+]

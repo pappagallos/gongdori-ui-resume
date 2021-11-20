@@ -1061,7 +1061,7 @@ export default function PostEdit() {
 
             {/* 우측 sticky 영역 */}
             <div className={styles.submit_area}>
-                <div className={styles.static_submit_area}>
+                <div className={styles.sticky_submit_area}>
                     <p className={styles.title}>채용공고 작성하기</p>
                     <p className={styles.description}>작성된 채용공고는 1시간 이내에 이공계사람들에서 검토 후 승인 시 보여집니다. 미승인 처리되실 경우 이메일과 연락처로 안내해드립니다.</p>
                     
