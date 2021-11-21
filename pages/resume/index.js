@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import { useRouter } from 'next/dist/client/router';
+import React, { useEffect, useState } from 'react';
 
 import styles from '../../styles/resume/Resume.module.scss';
 
+import RecommentList from './recommend_list.json';
+
 export default function Resume() {
+    const router = useRouter();
+
     const [selectedFormList, setSelectedFormList] = useState({
         education: false,       // 학력
         score: false,           // 성적
@@ -17,12 +22,46 @@ export default function Resume() {
         external_links: false,  // 외부링크
     });
 
+    const [preferenceFormList, setPreferenceFormList] = useState();
+
     function handleChangeForm(key) {
         setSelectedFormList({
             ...selectedFormList,
             [`${key}`]: !selectedFormList[`${key}`]
         });
     }
+
+    useEffect(() => {
+        if (router.isReady) {
+            // query parameter로 category가 넘어오지 않았다면 뒤로가기
+            if (!router.query.category) {
+                router.back();
+            }
+
+            if (RecommentList) {
+                switch(router.query.category) {
+                    case 'construct': {
+                        setPreferenceFormList(RecommentList[0]);
+                        return;
+                    }
+                    case 'biology': {
+                        setPreferenceFormList(RecommentList[1]);
+                        return;
+                    }
+                    case 'development': {
+                        setPreferenceFormList(RecommentList[2]);
+                        return;
+                    }
+                    case 'college': {
+                        setPreferenceFormList(RecommentList[3]);
+                        return;
+                    }
+                }
+            }
+        }
+    }, [router]);
+
+    if (!preferenceFormList) return null;
 
     return (
         <div className={styles.container}>
@@ -48,88 +87,88 @@ export default function Resume() {
                             <li className={selectedFormList.education ? styles.selected : undefined}>
                                 <input type='checkbox' id='education' onChange={() => handleChangeForm('education')} />
                                 <span>학력</span>
-                                <span className={styles.percent_score}>50%</span>
-                                <div className={styles.chart} style={{ width: '50%' }} />
+                                <span className={styles.percent_score}>{preferenceFormList.category_item.score.education}</span>
+                                <div className={styles.chart} style={{ width: preferenceFormList.category_item.score.education }} />
                             </li>
                         </label>
                         <label htmlFor='score'>
                             <li className={selectedFormList.score ? styles.selected : undefined}>
                                 <input type='checkbox' id='score' onChange={() => handleChangeForm('score')} />
                                 <span>성적</span>
-                                <span className={styles.percent_score}>50%</span>
-                                <div className={styles.chart} style={{ width: '50%' }} />
+                                <span className={styles.percent_score}>{preferenceFormList.category_item.score.score}</span>
+                                <div className={styles.chart} style={{ width: preferenceFormList.category_item.score.score }} />
                             </li>
                         </label>
                         <label htmlFor='career'>
                             <li className={selectedFormList.career ? styles.selected : undefined}>
                                 <input type='checkbox' id='career' onChange={() => handleChangeForm('career')} />
                                 <span>경력</span>
-                                <span className={styles.percent_score}>50%</span>
-                                <div className={styles.chart} style={{ width: '50%' }} />
+                                <span className={styles.percent_score}>{preferenceFormList.category_item.score.career}</span>
+                                <div className={styles.chart} style={{ width: preferenceFormList.category_item.score.career }} />
                             </li>
                         </label>
                         <label htmlFor='me'>
                             <li className={selectedFormList.me ? styles.selected : undefined}>
                                 <input type='checkbox' id='me' onChange={() => handleChangeForm('me')} />
                                 <span>자기소개</span>
-                                <span className={styles.percent_score}>50%</span>
-                                <div className={styles.chart} style={{ width: '50%' }} />
+                                <span className={styles.percent_score}>{preferenceFormList.category_item.score.me}</span>
+                                <div className={styles.chart} style={{ width: preferenceFormList.category_item.score.me }} />
                             </li>
                         </label>
                         <label htmlFor='portfolio'>
                             <li className={selectedFormList.portfolio ? styles.selected : undefined}>
                                 <input type='checkbox' id='portfolio' onChange={() => handleChangeForm('portfolio')} />
                                 <span>포트폴리오</span>
-                                <span className={styles.percent_score}>50%</span>
-                                <div className={styles.chart} style={{ width: '50%' }} />
+                                <span className={styles.percent_score}>{preferenceFormList.category_item.score.portfolio}</span>
+                                <div className={styles.chart} style={{ width: preferenceFormList.category_item.score.portfolio }} />
                             </li>
                         </label>
                         <label htmlFor='certification'>
                             <li className={selectedFormList.certification ? styles.selected : undefined}>
                                 <input type='checkbox' id='certification' onChange={() => handleChangeForm('certification')} />
                                 <span>자격증</span>
-                                <span className={styles.percent_score}>50%</span>
-                                <div className={styles.chart} style={{ width: '50%' }} />
+                                <span className={styles.percent_score}>{preferenceFormList.category_item.score.certification}</span>
+                                <div className={styles.chart} style={{ width: preferenceFormList.category_item.score.certification }} />
                             </li>
                         </label>
                         <label htmlFor='paper'>
                             <li className={selectedFormList.paper ? styles.selected : undefined}>
                                 <input type='checkbox' id='paper' onChange={() => handleChangeForm('paper')} />
                                 <span>논문</span>
-                                <span className={styles.percent_score}>50%</span>
-                                <div className={styles.chart} style={{ width: '50%' }} />
+                                <span className={styles.percent_score}>{preferenceFormList.category_item.score.paper}</span>
+                                <div className={styles.chart} style={{ width: preferenceFormList.category_item.score.paper }} />
                             </li>
                         </label>
                         <label htmlFor='academy'>
                             <li className={selectedFormList.academy ? styles.selected : undefined}>
                                 <input type='checkbox' id='academy' onChange={() => handleChangeForm('academy')} />
                                 <span>학회</span>
-                                <span className={styles.percent_score}>50%</span>
-                                <div className={styles.chart} style={{ width: '50%' }} />
+                                <span className={styles.percent_score}>{preferenceFormList.category_item.score.academy}</span>
+                                <div className={styles.chart} style={{ width: preferenceFormList.category_item.score.academy }} />
                             </li>
                         </label>
                         <label htmlFor='language'>
                             <li className={selectedFormList.language ? styles.selected : undefined}>
                                 <input type='checkbox' id='language' onChange={() => handleChangeForm('language')} />
                                 <span>외국어</span>
-                                <span className={styles.percent_score}>50%</span>
-                                <div className={styles.chart} style={{ width: '50%' }} />
+                                <span className={styles.percent_score}>{preferenceFormList.category_item.score.language}</span>
+                                <div className={styles.chart} style={{ width: preferenceFormList.category_item.score.language }} />
                             </li>
                         </label>
                         <label htmlFor='awards'>
                             <li className={selectedFormList.awards ? styles.selected : undefined}>
                                 <input type='checkbox' id='awards' onChange={() => handleChangeForm('awards')} />
                                 <span>수상</span>
-                                <span className={styles.percent_score}>50%</span>
-                                <div className={styles.chart} style={{ width: '50%' }} />
+                                <span className={styles.percent_score}>{preferenceFormList.category_item.score.awards}</span>
+                                <div className={styles.chart} style={{ width: preferenceFormList.category_item.score.awards }} />
                             </li>
                         </label>
                         <label htmlFor='external_links'>
                             <li className={selectedFormList.external_links ? styles.selected : undefined}>
                                 <input type='checkbox' id='external_links' onChange={() => handleChangeForm('external_links')} />
                                 <span>외부링크</span>
-                                <span className={styles.percent_score}>50%</span>
-                                <div className={styles.chart} style={{ width: '50%' }} />
+                                <span className={styles.percent_score}>{preferenceFormList.category_item.score.external_links}</span>
+                                <div className={styles.chart} style={{ width: preferenceFormList.category_item.score.external_links }} />
                             </li>
                         </label>
                     </ul>
