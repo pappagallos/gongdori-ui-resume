@@ -1,5 +1,6 @@
 import { useRouter } from 'next/dist/client/router';
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import styles from '../../styles/resume/Resume.module.scss';
 
@@ -24,11 +25,59 @@ export default function Resume() {
 
     const [preferenceFormList, setPreferenceFormList] = useState();
 
+    const [form, setForm] = useState({
+        education: [{
+            collegeType: '',
+            collegeStatus: '',
+            collegeName: '',
+            collegeMajorName: ''
+        }],
+    })
+
     function handleChangeForm(key) {
         setSelectedFormList({
             ...selectedFormList,
             [`${key}`]: !selectedFormList[`${key}`]
         });
+    }
+
+    const educationHandler = {
+        handleAddEducation: () => {
+            // 최대 추가 가능한 학력 개수는 4개까지 이므로 4개 이상알 때 추가하기를 누르면 더 추가되지 않도록 제약
+            if (form.education.length >= 4) {
+                toast.info('학력은 최대 4개까지 추가 가능합니다.', { position: 'bottom-center' })
+                return;
+            }
+    
+            const educationObj = {
+                collegeType: '',
+                collegeStatus: '',
+                collegeName: '',
+                collegeMajorName: ''
+            };
+    
+            const tempForm = JSON.parse(JSON.stringify(form));
+            tempForm.education.push(educationObj);
+    
+            setForm(tempForm);
+        },
+        handleUpdateEducation: (payload) => {
+            if (!payload) {
+                return;
+            }
+    
+            const key = Object.keys(payload)[0];
+            const tempForm = Object.assign({}, form);
+    
+            tempForm.education[payload[key].index][key] = payload[key].value.target.value;
+            setForm(tempForm);
+        },
+        handleRemoveEducation: (index) => {
+            const tempForm = Object.assign({}, form);
+            tempForm.education.splice(index, 1);
+    
+            setForm(tempForm);
+        }
     }
 
     useEffect(() => {
@@ -66,7 +115,124 @@ export default function Resume() {
     return (
         <div className={styles.container}>
             <div className={styles.edit_area}>
-                1
+                { selectedFormList.education &&
+                    <section>
+                        <div className={styles.title_area}>
+                            <p className={styles.title}>학력</p>
+                            <p className={styles.description}>
+                                학력을 입력해주세요.
+                            </p>
+                        </div>
+                        <div className={styles.editor}>
+                            { form.education.map((education, index) => 
+                                <div className={styles.sub_area} key={index}>
+                                    <select className={styles.college_type} onChange={(value) => educationHandler.handleUpdateEducation({ collegeType: { value, index }})}>
+                                        <option value='0' disabled selected>학교</option>
+                                        <option value='1'>대학교(2, 3년제)</option>
+                                        <option value='2'>대학교(4년제)</option>
+                                        <option value='3'>대학원(석사)</option>
+                                        <option value='4'>대학원(박사)</option>
+                                    </select>
+                                    <select className={styles.college_status} onChange={(value) => educationHandler.handleUpdateEducation({ collegeStatus: { value, index }})}>
+                                        <option value='0' disabled selected>상태</option>
+                                        <option value='1'>졸업</option>
+                                        <option value='2'>재학</option>
+                                        <option value='3'>휴학</option>
+                                        <option value='4'>중퇴</option>
+                                        <option value='5'>수료</option>
+                                    </select>
+                                    <input type='text' 
+                                        placeholder='학교명' 
+                                        className={styles.college_name} 
+                                        value={education.collegeName} 
+                                        onChange={(value) => educationHandler.handleUpdateEducation({ collegeName: { value, index }})} 
+                                    />
+                                    <input type='text' 
+                                        placeholder='전공' 
+                                        className={styles.major_name} 
+                                        value={education.collegeMajorName} 
+                                        onChange={(value) => educationHandler.handleUpdateEducation({ collegeMajorName: { value, index }})} 
+                                    />
+                                    { index > 0 &&
+                                        <button className={styles.button_remove} onClick={() => educationHandler.handleRemoveEducation(index)}>삭제</button>
+                                    }
+                                </div>
+                            )}
+                            <div className={styles.controller}>
+                                <button className={styles.button_add} onClick={educationHandler.handleAddEducation}>추가하기</button>
+                            </div>
+                        </div>
+                    </section>
+                }
+                { selectedFormList.score &&
+                    <section>
+                        <div className={styles.title_area}>
+                            <p className={styles.title}>성적</p>
+                            <p className={styles.description}>
+                                학력의 성적을 입력해주세요. 성적을 입력하기 위해서는 학력이 입력되어 있어야 합니다.
+                            </p>
+                        </div>
+                        <div className={styles.editor}>
+                            <div className={styles.sub_area}>
+                                <input type='text' placeholder='학점입력' className={styles.grade} />
+                                <select className={styles.max_grade}>
+                                    <option value='0' disabled selected>기준학점선택</option>
+                                    <option value='1'>4.0</option>
+                                    <option value='2'>4.3</option>
+                                    <option value='3'>4.5</option>
+                                    <option value='4'>5.0</option>
+                                    <option value='5'>7.0</option>
+                                    <option value='6'>100</option>
+                                </select>
+                            </div>
+                        </div>
+                    </section>
+                }
+                { selectedFormList.career &&
+                    <section>
+                        경력
+                    </section>
+                }
+                { selectedFormList.me &&
+                    <section>
+                        자기소개
+                    </section>
+                }
+                { selectedFormList.portfolio &&
+                    <section>
+                        포트폴리오
+                    </section>
+                }
+                { selectedFormList.certification &&
+                    <section>
+                        자격증
+                    </section>
+                }
+                { selectedFormList.paper &&
+                    <section>
+                        논문
+                    </section>
+                }
+                { selectedFormList.academy &&
+                    <section>
+                        학회
+                    </section>
+                }
+                { selectedFormList.language &&
+                    <section>
+                        외국어
+                    </section>
+                }
+                { selectedFormList.awards &&
+                    <section>
+                        수상
+                    </section>
+                }
+                { selectedFormList.external_links &&
+                    <section>
+                        외부링크
+                    </section>
+                }
             </div>
             <div className={styles.submit_area}>
                 <div className={styles.submit_controller_area}>

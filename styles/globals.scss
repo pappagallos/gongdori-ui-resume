@@ -36,7 +36,7 @@ a {
   text-decoration: none;
 }
 
-input {
+input, select {
   padding: 10px 15px;
   border: 1px solid #c9c9c9;
   border-radius: 5px;
@@ -52,6 +52,11 @@ input {
   &::placeholder {
     color: #b1b1b1;
   }
+}
+
+select {
+  background: url('/assets/images/common/select_bottom_arrow.png') no-repeat 95% 50%/15px auto;
+  appearance: none;
 }
 
 p, span {

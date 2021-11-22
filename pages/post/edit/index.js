@@ -362,7 +362,7 @@ export default function PostEdit() {
     function handleAddQualification() {
         if (qualification.length <= 0) {
             toast.info('추가하실 내용을 입력해주세요.', {
-                position: "bottom-center"
+                position: 'bottom-center'
             });
             return;
         }
@@ -412,7 +412,7 @@ export default function PostEdit() {
     function handleAddBenefit() {
         if (benefit.length <= 0) {
             toast.info('추가하실 내용을 입력해주세요.', {
-                position: "bottom-center"
+                position: 'bottom-center'
             });
             return;
         }
@@ -481,7 +481,7 @@ export default function PostEdit() {
 
             if (isDuplicated) {
                 toast.info('이미 동일한 내용의 복지가 존재합니다.', {
-                    position: "bottom-center",
+                    position: 'bottom-center',
                 });
 
                 return;
@@ -499,7 +499,7 @@ export default function PostEdit() {
         if (!keyword) {
             if (walfare.length <= 0) {
                 toast.info('추가하실 내용을 입력해주세요.', {
-                    position: "bottom-center",
+                    position: 'bottom-center',
                 });
                 return;
             }
@@ -565,14 +565,14 @@ export default function PostEdit() {
         if (tabIndex === 0) {
             if (!validPostTitle || !validPictures || !validAboutCompany || !validMainJob || !validQualification || !validWalfare || !validAddress) {
                 toast.warn('통과되지 않은 항목이 있습니다.', {
-                    position: "top-right"
+                    position: 'top-right'
                 })
                 return;
             }
         } else if (tabIndex === 1) {
             if (!validPostTitle || !validPictures || !validContents || !validQualification || !validWalfare || !validAddress) {
                 toast.warn('통과되지 않은 항목이 있습니다.', {
-                    position: "top-right"
+                    position: 'top-right'
                 })
                 return;
             }
